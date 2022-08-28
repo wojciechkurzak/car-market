@@ -1,20 +1,22 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import HomeScreen from './screens/HomeScreen';
+import MyCarsScreen from './screens/MyCarsScreen';
+import FavouritesScreen from './screens/FavouritesScreen';
+import SettingsScreen from './screens/SettingsScreens';
 
-const App = () => {
+const Tab = createBottomTabNavigator();
+
+export default function App() {
     return (
-        <View style={styles.appContainer}>
-            <Text>Hello world!</Text>
-        </View>
+        <NavigationContainer>
+            <Tab.Navigator>
+                <Tab.Screen name="Home" component={HomeScreen} />
+                <Tab.Screen name="My cars" component={MyCarsScreen} />
+                <Tab.Screen name="Favourites" component={FavouritesScreen} />
+                <Tab.Screen name="Settings" component={SettingsScreen} />
+            </Tab.Navigator>
+        </NavigationContainer>
     );
-};
-
-const styles = StyleSheet.create({
-    appContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
-
-export default App;
+}
