@@ -1,20 +1,35 @@
-import React, {useState} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
+import CarCard from '../components/CarCard';
+import {CarType} from '../interfaces/CarsInterface';
 
 const HomeScreen = () => {
-    const [data, setData] = useState<any>('');
+    const [cars, setCars] = useState<CarType[]>([]);
 
-    const gettingData = async () => {
-        const data = await firestore().collection('test').get();
-        data.forEach(snap => console.log(snap.data()));
-    };
+    useEffect(() => {
+        let carsArray: CarType[] = [];
+        const subscriber = firestore()
+            .collection('CarOffers')
+            .onSnapshot(snapshot => {
+                snapshot.forEach(
+                    doc =>
+                        (carsArray = [
+                            ...carsArray,
+                            {id: doc.id, ...doc.data()},
+                        ]),
+                );
+                setCars(carsArray);
+            });
 
-    gettingData();
+        return () => subscriber();
+    }, []);
 
     return (
         <View style={styles.container}>
-            <Text>Home!</Text>
+            {cars.map(car => (
+                <CarCard key={car.id} data={car} />
+            ))}
         </View>
     );
 };
