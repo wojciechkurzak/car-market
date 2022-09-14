@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import CarCard from '../components/CarCard';
 import {CarType} from '../interfaces/CarsInterface';
+import CarList from '../components/CarList';
 
 const HomeScreen = () => {
     const [cars, setCars] = useState<CarType[]>([]);
@@ -27,9 +27,7 @@ const HomeScreen = () => {
 
     return (
         <View style={styles.container}>
-            {cars.map(car => (
-                <CarCard key={car.id} data={car} />
-            ))}
+            {cars.length !== 0 && <CarList cars={cars} />}
         </View>
     );
 };
@@ -37,8 +35,6 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 });
 

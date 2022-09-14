@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, Image} from 'react-native';
 import {CarType} from '../interfaces/CarsInterface';
 import storage from '@react-native-firebase/storage';
 
-const CarCard = ({data}: {data: CarType}) => {
+const CarCard = ({car}: {car: CarType}) => {
     const [imageUrl, setImageUrl] = useState<string>('');
 
     const {
@@ -15,9 +15,9 @@ const CarCard = ({data}: {data: CarType}) => {
         image,
         town,
         country,
-    } = data;
+    } = car;
 
-    const downloadImage = async () => {
+    const downloadImage = async (): Promise<void> => {
         const imageRef = storage().ref(`carsImages/${image}`);
         const url = await imageRef.getDownloadURL().catch(error => {
             throw error;
@@ -59,7 +59,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         elevation: 4,
         borderRadius: 4,
+        marginVertical: 10,
         overflow: 'hidden',
+        alignSelf: 'center',
     },
     imageContainer: {
         width: '100%',
