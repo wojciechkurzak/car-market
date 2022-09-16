@@ -23,22 +23,22 @@ export default function App() {
                             ? 'rgba(0, 0, 0, 1.0)'
                             : '#rgba(0, 0, 0, 0.5)';
 
-                        if (route.name === 'Home') {
+                        if (route.name === 'HomeScreen') {
                             iconName = 'home';
                             iconSize = focused ? 28 : 24;
                         }
 
-                        if (route.name === 'My cars') {
+                        if (route.name === 'MyCarsScreen') {
                             iconName = 'car';
                             iconSize = focused ? 22 : 18;
                         }
 
-                        if (route.name === 'Favourites') {
+                        if (route.name === 'FavouritesScreen') {
                             iconName = 'star';
                             iconSize = focused ? 26 : 22;
                         }
 
-                        if (route.name === 'Settings') {
+                        if (route.name === 'SettingsScreen') {
                             iconName = 'gear';
                             iconSize = focused ? 26 : 22;
                         }
@@ -54,19 +54,19 @@ export default function App() {
                     tabBarLabel: ({focused}) => {
                         let text = '';
 
-                        if (route.name === 'Home') {
+                        if (route.name === 'HomeScreen') {
                             text = 'Home';
                         }
 
-                        if (route.name === 'My cars') {
+                        if (route.name === 'MyCarsScreen') {
                             text = 'My Cars';
                         }
 
-                        if (route.name === 'Favourites') {
+                        if (route.name === 'FavouritesScreen') {
                             text = 'Favourites';
                         }
 
-                        if (route.name === 'Settings') {
+                        if (route.name === 'SettingsScreen') {
                             text = 'Settings';
                         }
 
@@ -84,10 +84,13 @@ export default function App() {
                         );
                     },
                 })}>
-                <Tab.Screen name="Home" component={HomeScreen} />
-                <Tab.Screen name="My cars" component={MyCarsScreen} />
-                <Tab.Screen name="Favourites" component={FavouritesScreen} />
-                <Tab.Screen name="Settings" component={SettingsScreen} />
+                <Tab.Screen name="HomeScreen" component={HomeScreen} />
+                <Tab.Screen name="MyCarsScreen" component={MyCarsScreen} />
+                <Tab.Screen
+                    name="FavouritesScreen"
+                    component={FavouritesScreen}
+                />
+                <Tab.Screen name="SettingsScreen" component={SettingsScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     );
