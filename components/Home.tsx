@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {CarType} from '../interfaces/CarsInterface';
 import CarList from '../components/CarList';

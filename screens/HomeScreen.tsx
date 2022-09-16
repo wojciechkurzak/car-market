@@ -2,10 +2,15 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../components/Home';
 import Details from '../components/Details';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import DetailsHeader from '../components/DetailsHeader';
+import {CarType} from '../interfaces/CarsInterface';
 
-const HomeStack = createStackNavigator();
+export type HomeStackParamList = {
+    Home: undefined;
+    Details: {car: CarType};
+};
+
+const HomeStack = createStackNavigator<HomeStackParamList>();
 
 const HomeScreen = () => {
     return (
@@ -18,9 +23,6 @@ const HomeScreen = () => {
                     presentation: 'modal',
                     title: '',
                     headerTransparent: true,
-                    // headerBackImage: () => (
-                    //     <Icon name="arrow-left" size={24} color="#fff" />
-                    // ),
                     header: ({navigation}) => {
                         return <DetailsHeader goBack={navigation.goBack} />;
                     },
