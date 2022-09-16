@@ -15,7 +15,8 @@ export default function App() {
         <NavigationContainer>
             <Tab.Navigator
                 screenOptions={({route}) => ({
-                    tabBarIcon: ({focused, color, size}) => {
+                    headerShown: false,
+                    tabBarIcon: ({focused}) => {
                         let iconName = '';
                         let iconSize;
                         let iconColor = focused
@@ -50,7 +51,7 @@ export default function App() {
                             />
                         );
                     },
-                    tabBarLabel: ({focused, color}) => {
+                    tabBarLabel: ({focused}) => {
                         let text = '';
 
                         if (route.name === 'Home') {

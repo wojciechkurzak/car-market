@@ -2,9 +2,13 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
 import {CarType} from '../interfaces/CarsInterface';
 import storage from '@react-native-firebase/storage';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
 const CarCard = ({car}: {car: CarType}) => {
     const [imageUrl, setImageUrl] = useState<string>('');
+
+    const navigation = useNavigation();
 
     const {
         title,
@@ -30,25 +34,30 @@ const CarCard = ({car}: {car: CarType}) => {
     }, []);
 
     return (
-        <View style={styles.cardContainer}>
-            <View style={styles.imageContainer}>
-                <Image style={styles.image} source={{uri: imageUrl}} />
-            </View>
-            <View style={styles.textContainer}>
-                <View>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text>
-                        {productionDate} - {mileage} km - {engine}
-                    </Text>
+        <TouchableWithoutFeedback
+            onPress={() =>
+                navigation.navigate('Details', {car: {...car, image: imageUrl}})
+            }>
+            <View style={styles.cardContainer}>
+                <View style={styles.imageContainer}>
+                    <Image style={styles.image} source={{uri: imageUrl}} />
                 </View>
-                <View style={styles.bottomText}>
-                    <Text style={styles.price}>{price} PLN</Text>
-                    <Text style={styles.address}>
-                        {town}, {country}
-                    </Text>
+                <View style={styles.textContainer}>
+                    <View>
+                        <Text style={styles.title}>{title}</Text>
+                        <Text>
+                            {productionDate} - {mileage} km - {engine}
+                        </Text>
+                    </View>
+                    <View style={styles.bottomText}>
+                        <Text style={styles.price}>{price} PLN</Text>
+                        <Text style={styles.address}>
+                            {town}, {country}
+                        </Text>
+                    </View>
                 </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
 
