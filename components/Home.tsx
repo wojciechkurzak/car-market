@@ -4,7 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import {CarType} from '../interfaces/CarsInterface';
 import CarList from '../components/CarList';
 
-const Home = ({navigation}: any) => {
+const Home = () => {
     const [cars, setCars] = useState<CarType[]>([]);
 
     useEffect(() => {

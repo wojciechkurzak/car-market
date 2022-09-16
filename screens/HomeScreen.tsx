@@ -2,7 +2,8 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../components/Home';
 import Details from '../components/Details';
-import {Text, View} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import DetailsHeader from '../components/DetailsHeader';
 
 const HomeStack = createStackNavigator();
 
@@ -15,6 +16,14 @@ const HomeScreen = () => {
                 component={Details}
                 options={{
                     presentation: 'modal',
+                    title: '',
+                    headerTransparent: true,
+                    // headerBackImage: () => (
+                    //     <Icon name="arrow-left" size={24} color="#fff" />
+                    // ),
+                    header: ({navigation}) => {
+                        return <DetailsHeader goBack={navigation.goBack} />;
+                    },
                 }}
             />
         </HomeStack.Navigator>
