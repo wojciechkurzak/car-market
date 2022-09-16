@@ -6,6 +6,7 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {HomeStackParamList} from '../screens/HomeScreen';
+import NoImage from './NoImage';
 
 type DetailsScreenProp = StackNavigationProp<HomeStackParamList, 'Details'>;
 
@@ -44,7 +45,11 @@ const CarCard = ({car}: {car: CarType}) => {
             }>
             <View style={styles.cardContainer}>
                 <View style={styles.imageContainer}>
-                    <Image style={styles.image} source={{uri: imageUrl}} />
+                    {imageUrl ? (
+                        <Image style={styles.image} source={{uri: imageUrl}} />
+                    ) : (
+                        <NoImage />
+                    )}
                 </View>
                 <View style={styles.textContainer}>
                     <View>
