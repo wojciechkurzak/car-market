@@ -24,6 +24,7 @@ const CarCard = ({car}: {car: CarType}) => {
         image,
         town,
         country,
+        displacement,
     } = car;
 
     const downloadImage = async (): Promise<void> => {
@@ -55,7 +56,8 @@ const CarCard = ({car}: {car: CarType}) => {
                     <View>
                         <Text style={styles.title}>{title}</Text>
                         <Text>
-                            {productionDate} - {mileage} km - {fuelType}
+                            {productionDate} - {mileage} km - {fuelType} -{' '}
+                            {displacement} cm3
                         </Text>
                     </View>
                     <View style={styles.bottomText}>
