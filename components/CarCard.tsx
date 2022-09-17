@@ -18,7 +18,7 @@ const CarCard = ({car}: {car: CarType}) => {
     const {
         title,
         mileage,
-        engine,
+        fuelType,
         productionDate,
         price,
         image,
@@ -55,7 +55,7 @@ const CarCard = ({car}: {car: CarType}) => {
                     <View>
                         <Text style={styles.title}>{title}</Text>
                         <Text>
-                            {productionDate} - {mileage} km - {engine}
+                            {productionDate} - {mileage} km - {fuelType}
                         </Text>
                     </View>
                     <View style={styles.bottomText}>

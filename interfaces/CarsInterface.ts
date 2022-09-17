@@ -3,7 +3,7 @@ export interface CarType {
     title?: string;
     description?: string;
     mileage?: string;
-    engine?: string;
+    fuelType?: string;
     productionDate?: string;
     price?: string;
     image?: string;
@@ -11,4 +11,6 @@ export interface CarType {
     country?: string;
     email?: string;
     phone?: string;
+    displacement?: string;
+    equipment?: string[];
 }
