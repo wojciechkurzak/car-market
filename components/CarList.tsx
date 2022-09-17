@@ -2,8 +2,9 @@ import React from 'react';
 import {FlatList, View, StyleSheet} from 'react-native';
 import {CarType} from '../interfaces/CarsInterface';
 import CarCard from './CarCard';
+import Filters from './Filters';
 
-const CarList = ({cars}: {cars: CarType[]}) => {
+const CarList = ({cars, filter}: {cars: CarType[]; filter: boolean}) => {
     const renderItem = ({item}: {item: CarType}) => <CarCard car={item} />;
 
     return (
@@ -13,6 +14,7 @@ const CarList = ({cars}: {cars: CarType[]}) => {
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
                 overScrollMode={'never'}
+                ListHeaderComponent={filter ? <Filters cars={cars} /> : null}
             />
         </View>
     );

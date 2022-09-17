@@ -27,7 +27,7 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
-            {cars.length !== 0 && <CarList cars={cars} />}
+            {cars.length !== 0 && <CarList cars={cars} filter={true} />}
         </View>
     );
 };

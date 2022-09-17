@@ -4,10 +4,13 @@ import Home from '../components/Home';
 import Details from '../components/Details';
 import DetailsHeader from '../components/DetailsHeader';
 import {CarType} from '../interfaces/CarsInterface';
+import Results from '../components/Results';
+import {FiltersType} from '../interfaces/FiltersInterface';
 
 export type HomeStackParamList = {
     Home: undefined;
     Details: {car: CarType};
+    Results: {cars: CarType[]; filters: FiltersType};
 };
 
 const HomeStack = createStackNavigator<HomeStackParamList>();
@@ -27,6 +30,11 @@ const HomeScreen = () => {
                         return <DetailsHeader goBack={navigation.goBack} />;
                     },
                 }}
+            />
+            <HomeStack.Screen
+                name="Results"
+                component={Results}
+                options={{presentation: 'modal'}}
             />
         </HomeStack.Navigator>
     );
