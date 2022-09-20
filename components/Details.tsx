@@ -29,7 +29,7 @@ const Details = () => {
                     <NoImage />
                 )}
             </View>
-            <View style={styles.textContainer}>
+            <View>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.carDetails}>
                     {productionDate} - {mileage} km - {fuelType} -{' '}
@@ -43,13 +43,13 @@ const Details = () => {
                 </View>
                 <Text style={styles.informationsTag}>Car informations</Text>
                 <View style={styles.informationsConatiner}>
-                    <View style={styles.informationsTitle}>
+                    <View>
                         <Text>Production date</Text>
                         <Text>Mileage</Text>
                         <Text>Displacement</Text>
                         <Text>Fuel type</Text>
                     </View>
-                    <View style={styles.informationsData}>
+                    <View>
                         <Text style={styles.productionDate}>
                             {productionDate}
                         </Text>
@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 14,
         paddingTop: 10,
     },
-    textContainer: {},
     carDetails: {
         marginTop: 4,
         paddingHorizontal: 14,
@@ -91,10 +90,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 14,
     },
     price: {
-        color: '#b00',
-        fontSize: 24,
-        fontWeight: '700',
-        lineHeight: 26,
+        color: '#000',
+        fontSize: 26,
+        fontWeight: '900',
+        lineHeight: 28,
         paddingHorizontal: 14,
     },
     descriptionConatiner: {
@@ -126,8 +125,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 20,
     },
-    informationsTitle: {},
-    informationsData: {},
     productionDate: {textAlign: 'right'},
     mileage: {textAlign: 'right'},
     displacement: {textAlign: 'right'},
