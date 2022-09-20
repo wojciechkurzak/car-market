@@ -20,6 +20,8 @@ const Filters = ({cars}: {cars: CarType[]}) => {
         priceMax: '',
         mileageMin: '',
         mileageMax: '',
+        productionDateMin: '',
+        productionDateMax: '',
     });
 
     const navigation = useNavigation<ResultsScreenProp>();
@@ -63,6 +65,27 @@ const Filters = ({cars}: {cars: CarType[]}) => {
                     value={filters.mileageMax}
                     onChangeText={value =>
                         setFilters({...filters, mileageMax: value})
+                    }
+                    keyboardType="numeric"
+                    placeholder="Max"
+                />
+            </View>
+            <Text style={styles.tag}>Production Date</Text>
+            <View style={styles.valueContainer}>
+                <TextInput
+                    style={styles.valueInput}
+                    value={filters.productionDateMin}
+                    onChangeText={value =>
+                        setFilters({...filters, productionDateMin: value})
+                    }
+                    keyboardType="numeric"
+                    placeholder="Min"
+                />
+                <TextInput
+                    style={styles.valueInput}
+                    value={filters.productionDateMax}
+                    onChangeText={value =>
+                        setFilters({...filters, productionDateMax: value})
                     }
                     keyboardType="numeric"
                     placeholder="Max"

@@ -3,4 +3,6 @@ export interface FiltersType {
     priceMax?: string;
     mileageMin?: string;
     mileageMax?: string;
+    productionDateMin?: string;
+    productionDateMax?: string;
 }
