@@ -1,4 +1,4 @@
-export const brands = [
+export const CarBrands = [
     'Abarth',
     'Alfa Romeo',
     'Aston Martin',

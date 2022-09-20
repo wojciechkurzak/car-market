@@ -5,4 +5,5 @@ export interface FiltersType {
     mileageMax?: string;
     productionDateMin?: string;
     productionDateMax?: string;
+    carBrands?: string[];
 }
