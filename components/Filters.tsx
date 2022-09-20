@@ -15,25 +15,55 @@ import {HomeStackParamList} from '../screens/HomeScreen';
 type ResultsScreenProp = StackNavigationProp<HomeStackParamList, 'Results'>;
 
 const Filters = ({cars}: {cars: CarType[]}) => {
-    const [filters, setFilters] = useState<FiltersType>({min: '', max: ''});
+    const [filters, setFilters] = useState<FiltersType>({
+        priceMin: '',
+        priceMax: '',
+        mileageMin: '',
+        mileageMax: '',
+    });
 
     const navigation = useNavigation<ResultsScreenProp>();
 
     return (
         <View style={styles.filtersContainer}>
-            <Text style={styles.priceTag}>Price</Text>
-            <View style={styles.priceContainer}>
+            <Text style={styles.tag}>Price</Text>
+            <View style={styles.valueContainer}>
                 <TextInput
-                    style={styles.priceInput}
-                    value={filters.min}
-                    onChangeText={value => setFilters({...filters, min: value})}
+                    style={styles.valueInput}
+                    value={filters.priceMin}
+                    onChangeText={value =>
+                        setFilters({...filters, priceMin: value})
+                    }
                     keyboardType="numeric"
                     placeholder="Min"
                 />
                 <TextInput
-                    style={styles.priceInput}
-                    value={filters.max}
-                    onChangeText={value => setFilters({...filters, max: value})}
+                    style={styles.valueInput}
+                    value={filters.priceMax}
+                    onChangeText={value =>
+                        setFilters({...filters, priceMax: value})
+                    }
+                    keyboardType="numeric"
+                    placeholder="Max"
+                />
+            </View>
+            <Text style={styles.tag}>Mileage</Text>
+            <View style={styles.valueContainer}>
+                <TextInput
+                    style={styles.valueInput}
+                    value={filters.mileageMin}
+                    onChangeText={value =>
+                        setFilters({...filters, mileageMin: value})
+                    }
+                    keyboardType="numeric"
+                    placeholder="Min"
+                />
+                <TextInput
+                    style={styles.valueInput}
+                    value={filters.mileageMax}
+                    onChangeText={value =>
+                        setFilters({...filters, mileageMax: value})
+                    }
                     keyboardType="numeric"
                     placeholder="Max"
                 />
@@ -59,17 +89,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingHorizontal: 30,
     },
-    priceTag: {
+    tag: {
         fontSize: 16,
         color: '#000',
         fontWeight: '500',
+        marginTop: 12,
     },
-    priceContainer: {
+    valueContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 6,
     },
-    priceInput: {
+    valueInput: {
         width: 170,
         padding: 4,
         paddingHorizontal: 8,

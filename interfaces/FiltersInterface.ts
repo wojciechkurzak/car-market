@@ -1,4 +1,6 @@
 export interface FiltersType {
-    min?: string;
-    max?: string;
+    priceMin?: string;
+    priceMax?: string;
+    mileageMin?: string;
+    mileageMax?: string;
 }

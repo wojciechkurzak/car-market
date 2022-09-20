@@ -12,8 +12,14 @@ const Results = () => {
 
     const filteredCars = cars.filter(
         car =>
-            (filters.min?.length === 0 || car.price! >= filters.min!) &&
-            (filters.max?.length === 0 || car.price! <= filters.max!),
+            (filters.priceMin?.length === 0 ||
+                car.price! >= filters.priceMin!) &&
+            (filters.priceMax?.length === 0 ||
+                car.price! <= filters.priceMax!) &&
+            (filters.mileageMin?.length === 0 ||
+                car.mileage! >= filters.mileageMin!) &&
+            (filters.mileageMax?.length === 0 ||
+                car.mileage! <= filters.mileageMax!),
     );
 
     return <CarList cars={filteredCars} filter={false} />;
