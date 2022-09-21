@@ -23,7 +23,9 @@ const Results = () => {
             (filters.mileageMin?.length === 0 ||
                 car.productionDate! >= filters.productionDateMin!) &&
             (filters.mileageMax?.length === 0 ||
-                car.productionDate! <= filters.productionDateMax!),
+                car.productionDate! <= filters.productionDateMax!) &&
+            (filters.carBrands?.length === 0 ||
+                filters.carBrands!.includes(car.carBrand!)),
     );
 
     return <CarList cars={filteredCars} filter={false} />;

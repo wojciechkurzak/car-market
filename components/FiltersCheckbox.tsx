@@ -29,7 +29,6 @@ const FiltersCheckbox = ({title, filters, setFilters}: FiltersCheckboxType) => {
                         ...filters,
                         carBrands: filteredCarBrands,
                     });
-                    console.log(value);
                     setToggleCheckBox(value);
                 }}
             />

@@ -38,8 +38,8 @@ const Filters = ({cars}: {cars: CarType[]}) => {
                     <View>
                         <Text style={styles.carBrandValues}>
                             {filters.carBrands?.length !== 0
-                                ? filters.carBrands
-                                : 'Brands'}
+                                ? filters.carBrands!.map(brand => brand + ', ')
+                                : 'Select brands'}
                         </Text>
                     </View>
                 </TouchableWithoutFeedback>
