@@ -12,6 +12,7 @@ import {CarType} from '../interfaces/CarsInterface';
 import {FiltersType} from '../interfaces/FiltersInterface';
 import {HomeStackParamList} from '../screens/HomeScreen';
 import FiltersModal from './FiltersModal';
+import Icon from 'react-native-vector-icons/Feather';
 
 type ResultsScreenProp = StackNavigationProp<HomeStackParamList, 'Results'>;
 
@@ -41,6 +42,26 @@ const Filters = ({cars}: {cars: CarType[]}) => {
                                 ? filters.carBrands!.map(brand => brand + ', ')
                                 : 'Select brands'}
                         </Text>
+                        {filters.carBrands?.length === 0 ? (
+                            <Icon
+                                style={styles.icon}
+                                name="plus"
+                                size={26}
+                                color="#000"
+                            />
+                        ) : (
+                            <TouchableWithoutFeedback
+                                onPress={() =>
+                                    setFilters({...filters, carBrands: []})
+                                }>
+                                <Icon
+                                    style={styles.icon}
+                                    name="x"
+                                    size={26}
+                                    color="#000"
+                                />
+                            </TouchableWithoutFeedback>
+                        )}
                     </View>
                 </TouchableWithoutFeedback>
                 <Text style={styles.tag}>Price</Text>
@@ -144,6 +165,10 @@ const styles = StyleSheet.create({
         padding: 4,
         borderBottomWidth: 1,
         borderBottomColor: '#444',
+    },
+    icon: {
+        position: 'absolute',
+        alignSelf: 'flex-end',
     },
     valueContainer: {
         flexDirection: 'row',
