@@ -11,8 +11,13 @@ type FiltersCheckboxType = {
 
 const FiltersCheckbox = ({title, filters, setFilters}: FiltersCheckboxType) => {
     const [toggleCheckBox, setToggleCheckBox] = useState<boolean>(
-        filters.carBrands!.includes(title) ? true : false,
+        filters.carBrands!.includes(title),
     );
+
+    {
+        title === 'Audi' &&
+            console.log({title: title, checked: toggleCheckBox});
+    }
 
     return (
         <View style={styles.container}>

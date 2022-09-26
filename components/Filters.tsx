@@ -27,7 +27,7 @@ const Filters = ({cars}: {cars: CarType[]}) => {
         carBrands: [],
     });
 
-    const [brandModal, setBrandModal] = useState<boolean>(false);
+    const [brandModal, setBrandModal] = useState<boolean>(true);
 
     const navigation = useNavigation<ResultsScreenProp>();
 
@@ -39,7 +39,10 @@ const Filters = ({cars}: {cars: CarType[]}) => {
                     <View>
                         <Text style={styles.carBrandValues}>
                             {filters.carBrands?.length !== 0
-                                ? filters.carBrands!.map(brand => brand + ', ')
+                                ? filters.carBrands!.map((brand, index) => {
+                                      if (index === 0) return brand;
+                                      else return `, ${brand}`;
+                                  })
                                 : 'Select brands'}
                         </Text>
                         {filters.carBrands?.length === 0 ? (

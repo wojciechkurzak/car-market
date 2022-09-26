@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Modal,
-    Text,
+    TextInput,
     View,
     StyleSheet,
     TouchableWithoutFeedback,
     FlatList,
+    Text,
 } from 'react-native';
 import {FiltersType} from '../interfaces/FiltersInterface';
 import {CarBrands} from '../utils/CarBrands';
@@ -24,13 +25,20 @@ const FiltersModal = ({
     filters,
     setFilters,
 }: FiltersModalType) => {
-    const renderItem = ({item}: {item: string}) => (
-        <FiltersCheckbox
-            title={item}
-            filters={filters}
-            setFilters={setFilters}
-        />
-    );
+    const [searchBrand, setSearchBrand] = useState<string>('');
+
+    const renderItem = ({item}: {item: string}) => {
+        if (!item.toLowerCase().includes(searchBrand.toLowerCase()))
+            return null;
+        else
+            return (
+                <FiltersCheckbox
+                    title={item}
+                    filters={filters}
+                    setFilters={setFilters}
+                />
+            );
+    };
 
     return (
         <View>
@@ -39,17 +47,32 @@ const FiltersModal = ({
                 visible={visible}
                 transparent={true}
                 onRequestClose={() => setVisible(!visible)}>
+                <TouchableWithoutFeedback onPress={() => setVisible(false)}>
+                    <View style={styles.closeContainer}></View>
+                </TouchableWithoutFeedback>
                 <View style={styles.centeredView}>
-                    <TouchableWithoutFeedback onPress={() => setVisible(false)}>
-                        <View style={styles.closeContainer}></View>
-                    </TouchableWithoutFeedback>
                     <View style={styles.modal}>
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                value={searchBrand}
+                                onChangeText={value => setSearchBrand(value)}
+                                placeholder="Type here"
+                                style={styles.input}
+                            />
+                        </View>
                         <FlatList
                             data={CarBrands}
                             renderItem={renderItem}
+                            extraData={searchBrand}
                             overScrollMode={'never'}
-                            initialNumToRender={CarBrands.length}
+                            initialNumToRender={14}
                         />
+                        <View style={styles.bottomTab}>
+                            <TouchableWithoutFeedback
+                                onPress={() => setVisible(false)}>
+                                <Text style={styles.bottomText}>Close</Text>
+                            </TouchableWithoutFeedback>
+                        </View>
                     </View>
                 </View>
             </Modal>
@@ -60,8 +83,9 @@ const FiltersModal = ({
 const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
+        marginTop: 50,
     },
     closeContainer: {
         position: 'absolute',
@@ -71,9 +95,38 @@ const styles = StyleSheet.create({
     },
     modal: {
         width: 300,
-        height: 520,
+        height: 560,
         backgroundColor: '#fff',
         paddingHorizontal: 8,
+        borderRadius: 6,
+    },
+    inputContainer: {
+        paddingVertical: 6,
+        paddingHorizontal: 8,
+        borderBottomWidth: 2,
+        borderBottomColor: '#888',
+    },
+    input: {
+        fontSize: 19,
+        color: '#000',
+    },
+    bottomTab: {
+        height: 50,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        borderTopWidth: 2,
+        borderTopColor: '#888',
+    },
+    bottomText: {
+        width: 70,
+        fontSize: 18,
+        backgroundColor: '#55f',
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: '500',
+        borderRadius: 6,
+        lineHeight: 28,
     },
 });
 
