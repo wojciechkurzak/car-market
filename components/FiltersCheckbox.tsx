@@ -14,11 +14,6 @@ const FiltersCheckbox = ({title, filters, setFilters}: FiltersCheckboxType) => {
         filters.carBrands!.includes(title),
     );
 
-    {
-        title === 'Audi' &&
-            console.log({title: title, checked: toggleCheckBox});
-    }
-
     return (
         <View style={styles.container}>
             <CheckBox

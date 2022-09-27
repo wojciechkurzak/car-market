@@ -11,6 +11,7 @@ import {
 import {FiltersType} from '../interfaces/FiltersInterface';
 import {CarBrands} from '../utils/CarBrands';
 import FiltersCheckbox from './FiltersCheckbox';
+import Icon from 'react-native-vector-icons/Feather';
 
 type FiltersModalType = {
     visible: boolean;
@@ -59,6 +60,17 @@ const FiltersModal = ({
                                 placeholder="Type here"
                                 style={styles.input}
                             />
+                            {searchBrand.length !== 0 && (
+                                <TouchableWithoutFeedback
+                                    onPress={() => setSearchBrand('')}>
+                                    <Icon
+                                        style={styles.clearIcon}
+                                        name="x"
+                                        size={26}
+                                        color="#000"
+                                    />
+                                </TouchableWithoutFeedback>
+                            )}
                         </View>
                         <FlatList
                             data={CarBrands}
@@ -101,14 +113,21 @@ const styles = StyleSheet.create({
         borderRadius: 6,
     },
     inputContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
         paddingVertical: 6,
         paddingHorizontal: 8,
         borderBottomWidth: 2,
         borderBottomColor: '#888',
     },
     input: {
+        width: 250,
+        flexGrow: 1,
         fontSize: 19,
         color: '#000',
+    },
+    clearIcon: {
+        alignSelf: 'center',
     },
     bottomTab: {
         height: 50,
