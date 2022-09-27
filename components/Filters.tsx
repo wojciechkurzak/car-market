@@ -36,7 +36,7 @@ const Filters = ({cars}: {cars: CarType[]}) => {
             <View style={styles.filtersContainer}>
                 <Text style={styles.tag}>Car Brand</Text>
                 <TouchableWithoutFeedback onPress={() => setBrandModal(true)}>
-                    <View>
+                    <View style={styles.carBrandContainer}>
                         <Text style={styles.carBrandValues}>
                             {filters.carBrands?.length !== 0
                                 ? filters.carBrands!.map((brand, index) => {
@@ -164,14 +164,17 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         marginTop: 12,
     },
-    carBrandValues: {
-        padding: 4,
+    carBrandContainer: {
+        flexDirection: 'row',
         borderBottomWidth: 1,
         borderBottomColor: '#444',
     },
+    carBrandValues: {
+        flex: 1,
+        padding: 4,
+    },
     icon: {
-        position: 'absolute',
-        alignSelf: 'flex-end',
+        alignSelf: 'flex-start',
     },
     valueContainer: {
         flexDirection: 'row',
