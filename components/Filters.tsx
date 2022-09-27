@@ -27,7 +27,7 @@ const Filters = ({cars}: {cars: CarType[]}) => {
         carBrands: [],
     });
 
-    const [brandModal, setBrandModal] = useState<boolean>(true);
+    const [brandModal, setBrandModal] = useState<boolean>(false);
 
     const navigation = useNavigation<ResultsScreenProp>();
 
