@@ -2,6 +2,7 @@ import {RouteProp, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {HomeStackParamList} from '../screens/HomeScreen';
 import CarList from './CarList';
+import NoResult from './NoResult';
 
 type ResultssScreenProp = RouteProp<HomeStackParamList, 'Results'>;
 
@@ -28,7 +29,15 @@ const Results = () => {
                 filters.carBrands!.includes(car.carBrand!)),
     );
 
-    return <CarList cars={filteredCars} filter={false} />;
+    return (
+        <>
+            {filteredCars.length !== 0 ? (
+                <CarList cars={filteredCars} filter={false} />
+            ) : (
+                <NoResult />
+            )}
+        </>
+    );
 };
 
 export default Results;
