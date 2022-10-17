@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/HomeScreen';
@@ -7,10 +7,24 @@ import FavouritesScreen from './screens/FavouritesScreen';
 import SettingsScreen from './screens/SettingsScreens';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Text} from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+const App = () => {
+    const [user, setUser] = useState<object>();
+    const [loadingUser, setLoadingUser] = useState<boolean>(true);
+
+    const onAuthStateChanged = (user: any): void => {
+        setUser(user);
+        if (loadingUser) setLoadingUser(false);
+    };
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return subscriber;
+    }, []);
+
     return (
         <NavigationContainer>
             <Tab.Navigator
@@ -90,8 +104,14 @@ export default function App() {
                     name="FavouritesScreen"
                     component={FavouritesScreen}
                 />
-                <Tab.Screen name="SettingsScreen" component={SettingsScreen} />
+                <Tab.Screen
+                    name="SettingsScreen"
+                    component={SettingsScreen}
+                    initialParams={{user: user}}
+                />
             </Tab.Navigator>
         </NavigationContainer>
     );
-}
+};
+
+export default App;

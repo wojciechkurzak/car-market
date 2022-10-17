@@ -1,20 +1,33 @@
+import {useRoute} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import AuthPanel from '../components/AuthPanel';
+import Settings from '../components/Settings';
 
-const SettingsScreen = () => {
-    return (
-        <View style={styles.container}>
-            <Text>Settings!</Text>
-        </View>
-    );
+export type SettingsStackParamList = {
+    Settings: undefined;
+    AuthPanel: undefined;
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
+const SettingsStack = createStackNavigator<SettingsStackParamList>();
+
+const SettingsScreen = () => {
+    const routes = useRoute();
+
+    return (
+        <SettingsStack.Navigator>
+            <SettingsStack.Screen name="Settings" component={Settings} />
+            <SettingsStack.Screen
+                name="AuthPanel"
+                component={AuthPanel}
+                options={{
+                    presentation: 'modal',
+                    title: 'Log in',
+                    cardStyle: {backgroundColor: '#fff'},
+                }}
+            />
+        </SettingsStack.Navigator>
+    );
+};
 
 export default SettingsScreen;
