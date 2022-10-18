@@ -2,16 +2,13 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
-import {SettingsStackParamList} from '../screens/SettingsScreens';
-import Profile from './Profile';
+import {StackParamList} from '../App';
+import Profile from '../components/Profile';
 
-type SettingsScreenProp = StackNavigationProp<
-    SettingsStackParamList,
-    'AuthPanel'
->;
+type SettingsRouteProp = StackNavigationProp<StackParamList, 'AuthPanel'>;
 
-const Settings = () => {
-    const navigation = useNavigation<SettingsScreenProp>();
+const SettingsScreen = () => {
+    const navigation = useNavigation<SettingsRouteProp>();
 
     return (
         <>
@@ -26,4 +23,4 @@ const Settings = () => {
     );
 };
 
-export default Settings;
+export default SettingsScreen;

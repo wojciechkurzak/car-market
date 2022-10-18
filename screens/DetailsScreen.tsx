@@ -1,13 +1,13 @@
 import {RouteProp, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
-import {HomeStackParamList} from '../screens/HomeScreen';
-import NoImage from './NoImage';
+import {StackParamList} from '../App';
+import NoImage from '../components/NoImage';
 
-type DetailsScreenProp = RouteProp<HomeStackParamList, 'Details'>;
+type DetailsRouteProp = RouteProp<StackParamList, 'Details'>;
 
-const Details = () => {
-    const route = useRoute<DetailsScreenProp>();
+const DetailsScreen = () => {
+    const route = useRoute<DetailsRouteProp>();
 
     const {
         title,
@@ -131,4 +131,4 @@ const styles = StyleSheet.create({
     fuelType: {textAlign: 'right'},
 });
 
-export default Details;
+export default DetailsScreen;

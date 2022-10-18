@@ -1,13 +1,13 @@
 import {RouteProp, useRoute} from '@react-navigation/native';
 import React from 'react';
-import {HomeStackParamList} from '../screens/HomeScreen';
-import CarList from './CarList';
-import NoResult from './NoResult';
+import {StackParamList} from '../App';
+import CarList from '../components/CarList';
+import NoResult from '../components/NoResult';
 
-type ResultssScreenProp = RouteProp<HomeStackParamList, 'Results'>;
+type ResultsRouteProp = RouteProp<StackParamList, 'Results'>;
 
-const Results = () => {
-    const routes = useRoute<ResultssScreenProp>();
+const ResultsScreen = () => {
+    const routes = useRoute<ResultsRouteProp>();
 
     const {cars, filters} = routes.params;
 
@@ -40,4 +40,4 @@ const Results = () => {
     );
 };
 
-export default Results;
+export default ResultsScreen;

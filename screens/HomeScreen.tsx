@@ -1,43 +1,41 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import Home from '../components/Home';
-import Details from '../components/Details';
-import DetailsHeader from '../components/DetailsHeader';
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet} from 'react-native';
+import firestore from '@react-native-firebase/firestore';
 import {CarType} from '../interfaces/CarsInterface';
-import Results from '../components/Results';
-import {FiltersType} from '../interfaces/FiltersInterface';
-
-export type HomeStackParamList = {
-    Home: undefined;
-    Details: {car: CarType};
-    Results: {cars: CarType[]; filters: FiltersType};
-};
-
-const HomeStack = createStackNavigator<HomeStackParamList>();
+import CarList from '../components/CarList';
 
 const HomeScreen = () => {
+    const [cars, setCars] = useState<CarType[]>([]);
+
+    useEffect(() => {
+        let carsArray: CarType[] = [];
+        const subscriber = firestore()
+            .collection('CarOffers')
+            .onSnapshot(snapshot => {
+                snapshot.forEach(
+                    doc =>
+                        (carsArray = [
+                            ...carsArray,
+                            {id: doc.id, ...doc.data()},
+                        ]),
+                );
+                setCars(carsArray);
+            });
+
+        return () => subscriber();
+    }, []);
+
     return (
-        <HomeStack.Navigator>
-            <HomeStack.Screen name="Home" component={Home} />
-            <HomeStack.Screen
-                name="Details"
-                component={Details}
-                options={{
-                    presentation: 'modal',
-                    title: '',
-                    headerTransparent: true,
-                    header: ({navigation}) => {
-                        return <DetailsHeader goBack={navigation.goBack} />;
-                    },
-                }}
-            />
-            <HomeStack.Screen
-                name="Results"
-                component={Results}
-                options={{presentation: 'modal'}}
-            />
-        </HomeStack.Navigator>
+        <View style={styles.container}>
+            {cars.length !== 0 && <CarList cars={cars} filter={true} />}
+        </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+});
 
 export default HomeScreen;
