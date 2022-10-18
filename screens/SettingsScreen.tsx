@@ -5,6 +5,7 @@ import {StackParamList} from '../App';
 import AuthButton from '../components/AuthButton';
 import {BottomTabsParamList} from '../components/HomeTabs';
 import Profile from '../components/Profile';
+import {Text, StyleSheet} from 'react-native';
 
 type AuthPanelNavigationProp = StackNavigationProp<StackParamList, 'AuthPanel'>;
 
@@ -17,13 +18,27 @@ const SettingsScreen = () => {
 
     return (
         <>
-            <Profile />
-            <AuthButton
-                name="Log in"
-                access={() => navigation.navigate('AuthPanel')}
-            />
+            {route.params.user ? (
+                <Profile />
+            ) : (
+                <>
+                    <Text style={styles.authStatus}>You are not logged in</Text>
+                    <AuthButton
+                        name="Log in"
+                        access={() => navigation.navigate('AuthPanel')}
+                    />
+                </>
+            )}
         </>
     );
 };
+
+const styles = StyleSheet.create({
+    authStatus: {
+        alignSelf: 'center',
+        fontSize: 18,
+        marginTop: 20,
+    },
+});
 
 export default SettingsScreen;
