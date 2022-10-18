@@ -1,10 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 
 const Profile = () => {
     return (
         <View style={styles.container}>
-            <View style={styles.profilePicture}></View>
+            <Image
+                style={styles.profilePicture}
+                source={require('../assets/defaultIcon.png')}
+            />
             <Text style={styles.profileName}>Profile name</Text>
         </View>
     );
