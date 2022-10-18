@@ -10,11 +10,11 @@ import {
 } from 'react-native';
 import {CarType} from '../interfaces/CarsInterface';
 import {FiltersType} from '../interfaces/FiltersInterface';
-import {HomeStackParamList} from '../screens/SearchScreen';
 import FiltersModal from './FiltersModal';
 import Icon from 'react-native-vector-icons/Feather';
+import {StackParamList} from '../App';
 
-type ResultsScreenProp = StackNavigationProp<HomeStackParamList, 'Results'>;
+type ResultsNavigationProp = StackNavigationProp<StackParamList, 'Results'>;
 
 const Filters = ({cars}: {cars: CarType[]}) => {
     const [filters, setFilters] = useState<FiltersType>({
@@ -29,7 +29,7 @@ const Filters = ({cars}: {cars: CarType[]}) => {
 
     const [brandModal, setBrandModal] = useState<boolean>(false);
 
-    const navigation = useNavigation<ResultsScreenProp>();
+    const navigation = useNavigation<ResultsNavigationProp>();
 
     return (
         <>

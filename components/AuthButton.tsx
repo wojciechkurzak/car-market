@@ -3,12 +3,12 @@ import {TouchableWithoutFeedback, View, Text, StyleSheet} from 'react-native';
 
 type AuthButtonType = {
     name: string;
-    access: Function;
+    access: () => void;
 };
 
 const AuthButton = ({name, access}: AuthButtonType) => {
     return (
-        <TouchableWithoutFeedback onPress={() => access}>
+        <TouchableWithoutFeedback onPress={access}>
             <View style={styles.button}>
                 <Text style={styles.text}>{name}</Text>
             </View>

@@ -5,15 +5,15 @@ import storage from '@react-native-firebase/storage';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {HomeStackParamList} from '../screens/SearchScreen';
 import NoImage from './NoImage';
+import {StackParamList} from '../App';
 
-type DetailsScreenProp = StackNavigationProp<HomeStackParamList, 'Details'>;
+type DetailsNavigationProp = StackNavigationProp<StackParamList, 'Details'>;
 
 const CarCard = ({car}: {car: CarType}) => {
     const [imageUrl, setImageUrl] = useState<string>('');
 
-    const navigation = useNavigation<DetailsScreenProp>();
+    const navigation = useNavigation<DetailsNavigationProp>();
 
     const {
         title,

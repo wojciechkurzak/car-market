@@ -1,24 +1,27 @@
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
-import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import {StackParamList} from '../App';
+import AuthButton from '../components/AuthButton';
+import {BottomTabsParamList} from '../components/HomeTabs';
 import Profile from '../components/Profile';
 
-type SettingsRouteProp = StackNavigationProp<StackParamList, 'AuthPanel'>;
+type AuthPanelNavigationProp = StackNavigationProp<StackParamList, 'AuthPanel'>;
+
+type SettingsRouteProp = RouteProp<BottomTabsParamList, 'Settings'>;
 
 const SettingsScreen = () => {
-    const navigation = useNavigation<SettingsRouteProp>();
+    const navigation = useNavigation<AuthPanelNavigationProp>();
+
+    const route = useRoute<SettingsRouteProp>();
 
     return (
         <>
             <Profile />
-            <TouchableWithoutFeedback
-                onPress={() => navigation.navigate('AuthPanel')}>
-                <View>
-                    <Text>Log in</Text>
-                </View>
-            </TouchableWithoutFeedback>
+            <AuthButton
+                name="Log in"
+                access={() => navigation.navigate('AuthPanel')}
+            />
         </>
     );
 };
