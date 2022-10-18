@@ -7,6 +7,7 @@ import {BottomTabsParamList} from '../components/HomeTabs';
 import Profile from '../components/Profile';
 import {Text, StyleSheet} from 'react-native';
 import {AuthContext} from '../utils/AuthContext';
+import auth from '@react-native-firebase/auth';
 
 type AuthPanelNavigationProp = StackNavigationProp<StackParamList, 'AuthPanel'>;
 
@@ -18,7 +19,13 @@ const SettingsScreen = () => {
     return (
         <>
             {user ? (
-                <Profile />
+                <>
+                    <Profile />
+                    <AuthButton
+                        name="Sign out"
+                        access={() => auth().signOut()}
+                    />
+                </>
             ) : (
                 <>
                     <Text style={styles.authStatus}>You are not logged in</Text>
