@@ -3,6 +3,7 @@ import {TextInput, View, StyleSheet} from 'react-native';
 import AuthButton from './AuthButton';
 
 const Register = () => {
+    const [username, setUsername] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
@@ -11,6 +12,12 @@ const Register = () => {
 
     return (
         <View style={styles.container}>
+            <TextInput
+                value={username}
+                onChangeText={setUsername}
+                style={styles.input}
+                placeholder="Username"
+            />
             <TextInput
                 value={email}
                 onChangeText={setEmail}
