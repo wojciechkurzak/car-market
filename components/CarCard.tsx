@@ -5,7 +5,7 @@ import storage from '@react-native-firebase/storage';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {HomeStackParamList} from '../screens/HomeScreen';
+import {HomeStackParamList} from '../screens/SearchScreen';
 import NoImage from './NoImage';
 
 type DetailsScreenProp = StackNavigationProp<HomeStackParamList, 'Details'>;

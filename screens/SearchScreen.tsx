@@ -4,7 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import {CarType} from '../interfaces/CarsInterface';
 import CarList from '../components/CarList';
 
-const HomeScreen = () => {
+const SearchScreen = () => {
     const [cars, setCars] = useState<CarType[]>([]);
 
     useEffect(() => {
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HomeScreen;
+export default SearchScreen;

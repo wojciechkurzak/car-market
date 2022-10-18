@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {CarType} from '../interfaces/CarsInterface';
 import {FiltersType} from '../interfaces/FiltersInterface';
-import {HomeStackParamList} from '../screens/HomeScreen';
+import {HomeStackParamList} from '../screens/SearchScreen';
 import FiltersModal from './FiltersModal';
 import Icon from 'react-native-vector-icons/Feather';
 

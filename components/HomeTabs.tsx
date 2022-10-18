@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import HomeScreen from '../screens/HomeScreen';
+import SearchScreen from '../screens/SearchScreen';
 import MyCarsScreen from '../screens/MyCarsScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -10,7 +10,7 @@ import {RouteProp, useRoute} from '@react-navigation/native';
 import {StackParamList} from '../App';
 
 export type BottomTabsParamList = {
-    Home: undefined;
+    Search: undefined;
     MyCars: undefined;
     Favourites: undefined;
     Settings: {user: object};
@@ -24,11 +24,11 @@ const HomeTabs = () => {
     const routes = useRoute<HomeRouteProp>();
 
     const tabBarData = {
-        Home: {
-            text: 'Home',
-            iconName: 'home',
-            defaultSize: 24,
-            focusedSize: 28,
+        Search: {
+            text: 'Search',
+            iconName: 'search',
+            defaultSize: 22,
+            focusedSize: 26,
         },
         MyCars: {
             text: 'My cars',
@@ -87,7 +87,7 @@ const HomeTabs = () => {
                     );
                 },
             })}>
-            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="Search" component={SearchScreen} />
             <Tab.Screen name="MyCars" component={MyCarsScreen} />
             <Tab.Screen name="Favourites" component={FavouritesScreen} />
             <Tab.Screen
