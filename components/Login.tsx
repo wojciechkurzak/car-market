@@ -18,7 +18,8 @@ const Login = () => {
             .catch(error => {
                 if (
                     error.code === 'auth/user-not-found' ||
-                    error.code === 'auth/invalid-email'
+                    error.code === 'auth/invalid-email' ||
+                    error.code === 'auth/wrong-password'
                 )
                     setErrorMessage('Invalid e-mail or password');
                 else setErrorMessage('Something went wrong');
