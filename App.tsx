@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import auth from '@react-native-firebase/auth';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeTabs from './components/HomeTabs';
 import AuthPanel from './components/AuthPanel';
@@ -9,9 +9,10 @@ import DetailsHeader from './components/DetailsHeader';
 import Details from './screens/DetailsScreen';
 import {CarType} from './interfaces/CarsInterface';
 import {FiltersType} from './interfaces/FiltersInterface';
+import {AuthContext} from './utils/AuthContext';
 
 export type StackParamList = {
-    Home: {user: object};
+    Home: undefined;
     AuthPanel: undefined;
     Details: {car: CarType};
     Results: {cars: CarType[]; filters: FiltersType};
@@ -20,12 +21,10 @@ export type StackParamList = {
 const Stack = createStackNavigator<StackParamList>();
 
 const App = () => {
-    const [user, setUser] = useState<object>();
-    const [loadingUser, setLoadingUser] = useState<boolean>(true);
+    const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
-    const onAuthStateChanged = (user: any): void => {
+    const onAuthStateChanged = (user: FirebaseAuthTypes.User | null): void => {
         setUser(user);
-        if (loadingUser) setLoadingUser(false);
     };
 
     useEffect(() => {
@@ -33,43 +32,48 @@ const App = () => {
         return subscriber;
     }, []);
 
+    useEffect(() => console.log(user), [user]);
+
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen
-                    name="Home"
-                    component={HomeTabs}
-                    initialParams={user}
-                    options={{headerShown: false}}
-                />
-                <Stack.Screen
-                    name="AuthPanel"
-                    component={AuthPanel}
-                    options={{
-                        presentation: 'modal',
-                        title: 'Log in',
-                        cardStyle: {backgroundColor: '#fff'},
-                    }}
-                />
-                <Stack.Screen
-                    name="Details"
-                    component={Details}
-                    options={{
-                        presentation: 'modal',
-                        title: '',
-                        headerTransparent: true,
-                        header: ({navigation}) => {
-                            return <DetailsHeader goBack={navigation.goBack} />;
-                        },
-                    }}
-                />
-                <Stack.Screen
-                    name="Results"
-                    component={Results}
-                    options={{presentation: 'modal'}}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <AuthContext.Provider value={user}>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen
+                        name="Home"
+                        component={HomeTabs}
+                        options={{headerShown: false}}
+                    />
+                    <Stack.Screen
+                        name="AuthPanel"
+                        component={AuthPanel}
+                        options={{
+                            presentation: 'modal',
+                            title: 'Log in',
+                            cardStyle: {backgroundColor: '#fff'},
+                        }}
+                    />
+                    <Stack.Screen
+                        name="Details"
+                        component={Details}
+                        options={{
+                            presentation: 'modal',
+                            title: '',
+                            headerTransparent: true,
+                            header: ({navigation}) => {
+                                return (
+                                    <DetailsHeader goBack={navigation.goBack} />
+                                );
+                            },
+                        }}
+                    />
+                    <Stack.Screen
+                        name="Results"
+                        component={Results}
+                        options={{presentation: 'modal'}}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </AuthContext.Provider>
     );
 };
 

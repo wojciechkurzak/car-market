@@ -1,24 +1,23 @@
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React from 'react';
+import React, {useContext} from 'react';
 import {StackParamList} from '../App';
 import AuthButton from '../components/AuthButton';
 import {BottomTabsParamList} from '../components/HomeTabs';
 import Profile from '../components/Profile';
 import {Text, StyleSheet} from 'react-native';
+import {AuthContext} from '../utils/AuthContext';
 
 type AuthPanelNavigationProp = StackNavigationProp<StackParamList, 'AuthPanel'>;
-
-type SettingsRouteProp = RouteProp<BottomTabsParamList, 'Settings'>;
 
 const SettingsScreen = () => {
     const navigation = useNavigation<AuthPanelNavigationProp>();
 
-    const route = useRoute<SettingsRouteProp>();
+    const user = useContext(AuthContext);
 
     return (
         <>
-            {route.params.user ? (
+            {user ? (
                 <Profile />
             ) : (
                 <>

@@ -6,23 +6,17 @@ import SearchScreen from '../screens/SearchScreen';
 import MyCarsScreen from '../screens/MyCarsScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import {RouteProp, useRoute} from '@react-navigation/native';
-import {StackParamList} from '../App';
 
 export type BottomTabsParamList = {
     Search: undefined;
     MyCars: undefined;
     Favourites: undefined;
-    Settings: {user: object};
+    Settings: undefined;
 };
-
-type HomeRouteProp = RouteProp<StackParamList, 'Home'>;
 
 const Tab = createBottomTabNavigator<BottomTabsParamList>();
 
 const HomeTabs = () => {
-    const routes = useRoute<HomeRouteProp>();
-
     const tabBarData = {
         Search: {
             text: 'Search',
@@ -90,11 +84,7 @@ const HomeTabs = () => {
             <Tab.Screen name="Search" component={SearchScreen} />
             <Tab.Screen name="MyCars" component={MyCarsScreen} />
             <Tab.Screen name="Favourites" component={FavouritesScreen} />
-            <Tab.Screen
-                name="Settings"
-                component={SettingsScreen}
-                initialParams={{user: routes.params?.user}}
-            />
+            <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
     );
 };
