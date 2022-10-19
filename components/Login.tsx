@@ -3,18 +3,25 @@ import {TextInput, View, StyleSheet, Text} from 'react-native';
 import AuthButton from './AuthButton';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {BottomTabsParamList} from './HomeTabs';
+
+type SettingsNavigationProp = BottomTabNavigationProp<
+    BottomTabsParamList,
+    'Settings'
+>;
 
 const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<SettingsNavigationProp>();
 
-    const LogIn = () => {
+    const LogIn = (): void => {
         auth()
             .signInWithEmailAndPassword(email, password)
-            .then(() => navigation.goBack())
+            .then(() => navigation.navigate('Settings'))
             .catch(error => {
                 if (
                     error.code === 'auth/user-not-found' ||
