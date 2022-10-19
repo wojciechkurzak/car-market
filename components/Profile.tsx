@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
+import {AuthContext} from '../utils/AuthContext';
 
 const Profile = () => {
+    const user = useContext(AuthContext);
+
     return (
         <View style={styles.container}>
             <Image
                 style={styles.profilePicture}
                 source={require('../assets/defaultIcon.png')}
             />
-            <Text style={styles.profileName}>Profile name</Text>
+            <Text style={styles.profileName}>{user?.displayName}</Text>
         </View>
     );
 };
