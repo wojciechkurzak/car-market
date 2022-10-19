@@ -6,22 +6,17 @@ import {useNavigation} from '@react-navigation/native';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {BottomTabsParamList} from './HomeTabs';
 
-type SettingsNavigationProp = BottomTabNavigationProp<
-    BottomTabsParamList,
-    'Settings'
->;
-
 const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
 
-    const navigation = useNavigation<SettingsNavigationProp>();
+    const navigation = useNavigation();
 
     const LogIn = (): void => {
         auth()
             .signInWithEmailAndPassword(email, password)
-            .then(() => navigation.navigate('Settings'))
+            .then(() => navigation.goBack())
             .catch(error => {
                 if (
                     error.code === 'auth/user-not-found' ||

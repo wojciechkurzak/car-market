@@ -9,6 +9,7 @@ const AuthPanel = () => {
     return (
         <>
             <Tab.Navigator
+                backBehavior="none"
                 screenOptions={{
                     swipeEnabled: false,
                     tabBarPressColor: 'transparent',

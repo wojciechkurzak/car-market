@@ -7,11 +7,6 @@ import {useNavigation} from '@react-navigation/native';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {BottomTabsParamList} from './HomeTabs';
 
-type SettingsNavigationProp = BottomTabNavigationProp<
-    BottomTabsParamList,
-    'Settings'
->;
-
 const Register = () => {
     const [username, setUsername] = useState<string>('');
     const [email, setEmail] = useState<string>('');
@@ -19,7 +14,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
 
-    const navigation = useNavigation<SettingsNavigationProp>();
+    const navigation = useNavigation();
 
     const SetUser = (userUid: string): void => {
         firestore()
@@ -31,7 +26,7 @@ const Register = () => {
     const UpdateUsername = (): void => {
         auth()
             .currentUser?.updateProfile({displayName: username})
-            .then(() => navigation.navigate('Settings'));
+            .then(() => navigation.goBack());
     };
 
     const RegisterAccount = (): void => {
