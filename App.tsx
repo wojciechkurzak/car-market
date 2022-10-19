@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeTabs from './components/HomeTabs';
-import AuthPanel from './components/AuthPanel';
+import AuthScreen from './screens/AuthScreen';
 import Results from './screens/ResultsScreen';
 import DetailsHeader from './components/DetailsHeader';
 import Details from './screens/DetailsScreen';
@@ -13,7 +13,7 @@ import {AuthContext} from './utils/AuthContext';
 
 export type StackParamList = {
     Home: undefined;
-    AuthPanel: undefined;
+    Auth: undefined;
     Details: {car: CarType};
     Results: {cars: CarType[]; filters: FiltersType};
 };
@@ -46,8 +46,8 @@ const App = () => {
                         options={{headerShown: false}}
                     />
                     <Stack.Screen
-                        name="AuthPanel"
-                        component={AuthPanel}
+                        name="Auth"
+                        component={AuthScreen}
                         options={{
                             presentation: 'modal',
                             title: 'Log in',

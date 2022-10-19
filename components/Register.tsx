@@ -4,8 +4,6 @@ import AuthButton from './AuthButton';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
-import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {BottomTabsParamList} from './HomeTabs';
 
 const Register = () => {
     const [username, setUsername] = useState<string>('');

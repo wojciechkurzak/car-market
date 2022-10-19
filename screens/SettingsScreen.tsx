@@ -9,7 +9,7 @@ import {Text, StyleSheet} from 'react-native';
 import {AuthContext} from '../utils/AuthContext';
 import auth from '@react-native-firebase/auth';
 
-type AuthPanelNavigationProp = StackNavigationProp<StackParamList, 'AuthPanel'>;
+type AuthPanelNavigationProp = StackNavigationProp<StackParamList, 'Auth'>;
 
 const SettingsScreen = () => {
     const navigation = useNavigation<AuthPanelNavigationProp>();
@@ -31,7 +31,7 @@ const SettingsScreen = () => {
                     <Text style={styles.authStatus}>You are not logged in</Text>
                     <AuthButton
                         name="Log in"
-                        access={() => navigation.navigate('AuthPanel')}
+                        access={() => navigation.navigate('Auth')}
                     />
                 </>
             )}

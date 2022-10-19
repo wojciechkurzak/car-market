@@ -3,8 +3,6 @@ import {TextInput, View, StyleSheet, Text} from 'react-native';
 import AuthButton from './AuthButton';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
-import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {BottomTabsParamList} from './HomeTabs';
 
 const Login = () => {
     const [email, setEmail] = useState<string>('');

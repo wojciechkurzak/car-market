@@ -1,11 +1,11 @@
 import React from 'react';
-import Login from './Login';
+import Login from '../components/Login';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Register from './Register';
+import Register from '../components/Register';
 
 const Tab = createMaterialTopTabNavigator();
 
-const AuthPanel = () => {
+const AuthScreen = () => {
     return (
         <>
             <Tab.Navigator
@@ -36,4 +36,4 @@ const AuthPanel = () => {
     );
 };
 
-export default AuthPanel;
+export default AuthScreen;
