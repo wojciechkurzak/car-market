@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+    CardStyleInterpolators,
+    createStackNavigator,
+} from '@react-navigation/stack';
 import HomeTabs from './components/HomeTabs';
 import AuthScreen from './screens/AuthScreen';
 import Results from './screens/ResultsScreen';
@@ -52,6 +55,8 @@ const App = () => {
                             presentation: 'modal',
                             title: 'Log in',
                             cardStyle: {backgroundColor: '#fff'},
+                            cardStyleInterpolator:
+                                CardStyleInterpolators.forHorizontalIOS,
                         }}
                     />
                     <Stack.Screen
@@ -61,6 +66,8 @@ const App = () => {
                             presentation: 'modal',
                             title: '',
                             headerTransparent: true,
+                            cardStyleInterpolator:
+                                CardStyleInterpolators.forHorizontalIOS,
                             header: ({navigation}) => {
                                 return (
                                     <DetailsHeader goBack={navigation.goBack} />
@@ -71,7 +78,11 @@ const App = () => {
                     <Stack.Screen
                         name="Results"
                         component={Results}
-                        options={{presentation: 'modal'}}
+                        options={{
+                            presentation: 'modal',
+                            cardStyleInterpolator:
+                                CardStyleInterpolators.forHorizontalIOS,
+                        }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
