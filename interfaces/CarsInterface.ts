@@ -14,4 +14,5 @@ export interface CarType {
     displacement?: string;
     equipment?: string[];
     carBrand?: string;
+    userId?: string;
 }
