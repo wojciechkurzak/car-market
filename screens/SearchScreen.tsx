@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, RefreshControl} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {CarType} from '../interfaces/CarsInterface';
 import CarList from '../components/CarList';
 
 const SearchScreen = () => {
     const [cars, setCars] = useState<CarType[]>([]);
+    const [refreshing, setRefreshing] = useState<boolean>(false);
 
     const getCars = async (): Promise<void> => {
         let carsArray: CarType[] = [];
@@ -30,13 +31,27 @@ const SearchScreen = () => {
         setCars(carsArray);
     };
 
+    const onRefresh = async (): Promise<void> => {
+        setRefreshing(true);
+        await getCars();
+        setRefreshing(false);
+    };
+
     useEffect(() => {
         getCars();
     }, []);
 
     return (
         <View style={styles.container}>
-            {cars.length !== 0 && <CarList cars={cars} filter={true} />}
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            {cars.length !== 0 && (
+                <CarList
+                    cars={cars}
+                    filter={true}
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            )}
         </View>
     );
 };

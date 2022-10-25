@@ -4,7 +4,14 @@ import {CarType} from '../interfaces/CarsInterface';
 import CarCard from './CarCard';
 import Filters from './Filters';
 
-const CarList = ({cars, filter}: {cars: CarType[]; filter: boolean}) => {
+type CarListType = {
+    cars: CarType[];
+    filter: boolean;
+    refreshing: boolean;
+    onRefresh: Function;
+};
+
+const CarList = ({cars, filter, refreshing, onRefresh}: CarListType) => {
     const renderItem = ({item}: {item: CarType}) => <CarCard car={item} />;
 
     return (
@@ -14,6 +21,8 @@ const CarList = ({cars, filter}: {cars: CarType[]; filter: boolean}) => {
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
                 overScrollMode={'never'}
+                refreshing={refreshing}
+                onRefresh={() => onRefresh()}
                 ListHeaderComponent={filter ? <Filters cars={cars} /> : null}
             />
         </View>
