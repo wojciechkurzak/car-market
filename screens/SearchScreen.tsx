@@ -7,22 +7,31 @@ import CarList from '../components/CarList';
 const SearchScreen = () => {
     const [cars, setCars] = useState<CarType[]>([]);
 
-    useEffect(() => {
+    const getCars = async (): Promise<void> => {
         let carsArray: CarType[] = [];
-        const subscriber = firestore()
+        await firestore()
             .collection('CarOffers')
-            .onSnapshot(snapshot => {
-                snapshot.forEach(
-                    doc =>
+            .get()
+            .then(querySnapshot => {
+                querySnapshot.forEach(
+                    documentSnapshot =>
                         (carsArray = [
                             ...carsArray,
-                            {id: doc.id, ...doc.data()},
+                            {
+                                id: documentSnapshot.id,
+                                ...documentSnapshot.data(),
+                            },
                         ]),
                 );
-                setCars(carsArray);
+            })
+            .catch(error => {
+                throw error;
             });
+        setCars(carsArray);
+    };
 
-        return () => subscriber();
+    useEffect(() => {
+        getCars();
     }, []);
 
     return (
