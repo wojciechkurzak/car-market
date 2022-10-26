@@ -43,13 +43,16 @@ const SearchScreen = () => {
 
     return (
         <View style={styles.container}>
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             {cars.length !== 0 && (
                 <CarList
                     cars={cars}
                     filter={true}
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                        />
+                    }
                 />
             )}
         </View>

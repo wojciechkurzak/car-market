@@ -7,11 +7,10 @@ import Filters from './Filters';
 type CarListType = {
     cars: CarType[];
     filter: boolean;
-    refreshing: boolean;
-    onRefresh: Function;
+    refreshControl: JSX.Element;
 };
 
-const CarList = ({cars, filter, refreshing, onRefresh}: CarListType) => {
+const CarList = ({cars, filter, refreshControl}: CarListType) => {
     const renderItem = ({item}: {item: CarType}) => <CarCard car={item} />;
 
     return (
@@ -21,8 +20,7 @@ const CarList = ({cars, filter, refreshing, onRefresh}: CarListType) => {
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
                 overScrollMode={'never'}
-                refreshing={refreshing}
-                onRefresh={() => onRefresh()}
+                refreshControl={refreshControl}
                 ListHeaderComponent={filter ? <Filters cars={cars} /> : null}
             />
         </View>
