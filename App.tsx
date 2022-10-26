@@ -68,10 +68,8 @@ const App = () => {
                             headerTransparent: true,
                             cardStyleInterpolator:
                                 CardStyleInterpolators.forHorizontalIOS,
-                            header: ({navigation}) => {
-                                return (
-                                    <DetailsHeader goBack={navigation.goBack} />
-                                );
+                            header: () => {
+                                return <DetailsHeader />;
                             },
                         }}
                     />
