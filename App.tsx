@@ -12,7 +12,7 @@ import DetailsHeader from './components/DetailsHeader';
 import Details from './screens/DetailsScreen';
 import {CarType} from './interfaces/CarsInterface';
 import {FiltersType} from './interfaces/FiltersInterface';
-import {AuthContext} from './utils/AuthContext';
+import {AuthContext} from './config/context/AuthContext';
 
 export type StackParamList = {
     Home: undefined;

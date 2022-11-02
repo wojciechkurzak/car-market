@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {AuthContext} from '../utils/AuthContext';
+import {AuthContext} from '../config/context/AuthContext';
 import storage from '@react-native-firebase/storage';
 
 const Profile = () => {

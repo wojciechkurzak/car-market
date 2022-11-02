@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import {AuthContext} from '../utils/AuthContext';
+import {AuthContext} from '../config/context/AuthContext';
 import AuthButton from '../components/AuthButton';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';

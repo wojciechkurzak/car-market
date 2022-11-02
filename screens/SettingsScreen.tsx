@@ -1,12 +1,11 @@
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useContext} from 'react';
 import {StackParamList} from '../App';
 import AuthButton from '../components/AuthButton';
-import {BottomTabsParamList} from '../components/HomeTabs';
 import Profile from '../components/Profile';
 import {Text, StyleSheet} from 'react-native';
-import {AuthContext} from '../utils/AuthContext';
+import {AuthContext} from '../config/context/AuthContext';
 import auth from '@react-native-firebase/auth';
 
 type AuthPanelNavigationProp = StackNavigationProp<StackParamList, 'Auth'>;

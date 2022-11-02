@@ -9,7 +9,7 @@ import {
     Text,
 } from 'react-native';
 import {FiltersType} from '../interfaces/FiltersInterface';
-import {CarBrands} from '../utils/CarBrands';
+import {carBrands} from '../data/carBrands';
 import FiltersCheckbox from './FiltersCheckbox';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -73,7 +73,7 @@ const FiltersModal = ({
                             )}
                         </View>
                         <FlatList
-                            data={CarBrands}
+                            data={carBrands}
                             renderItem={renderItem}
                             extraData={searchBrand}
                             overScrollMode={'never'}
