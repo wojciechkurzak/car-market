@@ -15,13 +15,13 @@ const DetailsHeader = () => {
 
     const routes = useRoute<DetailsRouteProp>();
 
-    const getStorage = async (): Promise<String[] | null> => {
+    const getStorage = async (): Promise<String[]> => {
         const jsonValue = await AsyncStorage.getItem('@storage_Key').catch(
             error => {
                 throw error;
             },
         );
-        return jsonValue !== null ? JSON.parse(jsonValue) : null;
+        return jsonValue !== null ? JSON.parse(jsonValue) : [];
     };
 
     const setStorage = async (array: String[]): Promise<void> => {
@@ -34,13 +34,12 @@ const DetailsHeader = () => {
 
     const getFavourite = async (): Promise<void> => {
         const value = await getStorage();
-        if (value === null) return;
         setFavourite(value.includes(routes.params.car.id));
     };
 
     const toggleFavourite = async (): Promise<void> => {
         const value = await getStorage();
-        if (value === null) return;
+        console.log(value);
         const favouritesArray = favourite
             ? value.filter(item => item !== routes.params.car.id)
             : [...value, routes.params.car.id];
