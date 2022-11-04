@@ -7,7 +7,7 @@ import Filters from './Filters';
 type CarListType = {
     cars: CarType[];
     filter: boolean;
-    refreshControl: JSX.Element;
+    refreshControl?: JSX.Element;
 };
 
 const CarList = ({cars, filter, refreshControl}: CarListType) => {

@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackParamList} from '../App';
+import {getStorage, setStorage} from '../config/async_storage/asyncStorage';
 
 type DetailsRouteProp = RouteProp<StackParamList, 'Details'>;
 
@@ -15,24 +16,7 @@ const DetailsHeader = () => {
 
     const routes = useRoute<DetailsRouteProp>();
 
-    const getStorage = async (): Promise<String[]> => {
-        const jsonValue = await AsyncStorage.getItem('@storage_Key').catch(
-            error => {
-                throw error;
-            },
-        );
-        return jsonValue !== null ? JSON.parse(jsonValue) : [];
-    };
-
-    const setStorage = async (array: String[]): Promise<void> => {
-        await AsyncStorage.setItem('@storage_Key', JSON.stringify(array)).catch(
-            error => {
-                throw error;
-            },
-        );
-    };
-
-    const getFavourite = async (): Promise<void> => {
+    const getFavouriteId = async (): Promise<void> => {
         const value = await getStorage();
         setFavourite(value.includes(routes.params.car.id));
     };
@@ -48,7 +32,7 @@ const DetailsHeader = () => {
     };
 
     useEffect(() => {
-        getFavourite();
+        getFavouriteId();
     }, []);
 
     return (
