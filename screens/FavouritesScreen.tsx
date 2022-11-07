@@ -49,8 +49,6 @@ const FavouritesScreen = () => {
         }, []),
     );
 
-    console.log(favouriteCars);
-
     return (
         <View style={styles.container}>
             <CarList cars={favouriteCars} filter={false} />

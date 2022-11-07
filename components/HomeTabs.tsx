@@ -6,6 +6,7 @@ import SearchScreen from '../screens/SearchScreen';
 import MyCarsScreen from '../screens/MyCarsScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import AddCarButton from './AddCarButton';
 
 export type BottomTabsParamList = {
     Search: undefined;
@@ -82,7 +83,13 @@ const HomeTabs = () => {
                 },
             })}>
             <Tab.Screen name="Search" component={SearchScreen} />
-            <Tab.Screen name="MyCars" component={MyCarsScreen} />
+            <Tab.Screen
+                name="MyCars"
+                component={MyCarsScreen}
+                options={{
+                    headerRight: () => <AddCarButton />,
+                }}
+            />
             <Tab.Screen name="Favourites" component={FavouritesScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>

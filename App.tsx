@@ -13,12 +13,14 @@ import Details from './screens/DetailsScreen';
 import {CarType} from './interfaces/CarsInterface';
 import {FiltersType} from './interfaces/FiltersInterface';
 import {AuthContext} from './config/context/AuthContext';
+import AddCarScreen from './screens/AddCarScreen';
 
 export type StackParamList = {
     Home: undefined;
     Auth: undefined;
     Details: {car: CarType};
     Results: {cars: CarType[]; filters: FiltersType};
+    Add: undefined;
 };
 
 const Stack = createStackNavigator<StackParamList>();
@@ -76,6 +78,15 @@ const App = () => {
                     <Stack.Screen
                         name="Results"
                         component={Results}
+                        options={{
+                            presentation: 'modal',
+                            cardStyleInterpolator:
+                                CardStyleInterpolators.forHorizontalIOS,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="Add"
+                        component={AddCarScreen}
                         options={{
                             presentation: 'modal',
                             cardStyleInterpolator:

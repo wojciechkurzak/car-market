@@ -8,8 +8,6 @@ const Profile = () => {
 
     const user = useContext(AuthContext);
 
-    console.log(user);
-
     const downloadUserImage = async (): Promise<void> => {
         if (user === null || user.photoURL === null) return;
         const imageRef = storage().ref(
