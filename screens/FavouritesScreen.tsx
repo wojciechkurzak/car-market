@@ -1,6 +1,6 @@
 import {useFocusEffect} from '@react-navigation/native';
 import React, {useCallback, useState} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {getStorage} from '../config/async_storage/asyncStorage';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';

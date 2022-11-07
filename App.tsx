@@ -31,6 +31,7 @@ const App = () => {
     const onAuthStateChanged = (user: FirebaseAuthTypes.User | null): void => {
         setUser(user);
     };
+
     useEffect(() => {
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
         return subscriber;
