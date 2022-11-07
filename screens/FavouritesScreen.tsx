@@ -6,6 +6,7 @@ import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
 import {CarType} from '../interfaces/CarsInterface';
 import CarList from '../components/CarList';
+import NoResult from '../components/NoResult';
 
 const FavouritesScreen = () => {
     const [favouriteCars, setFavouriteCars] = useState<CarType[]>([]);
@@ -51,7 +52,11 @@ const FavouritesScreen = () => {
 
     return (
         <View style={styles.container}>
-            <CarList cars={favouriteCars} filter={false} />
+            {favouriteCars.length !== 0 ? (
+                <CarList cars={favouriteCars} filter={false} />
+            ) : (
+                <NoResult text="No favourites" iconName="star" />
+            )}
         </View>
     );
 };

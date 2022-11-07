@@ -34,7 +34,7 @@ const ResultsScreen = () => {
             {filteredCars.length !== 0 ? (
                 <CarList cars={filteredCars} filter={false} />
             ) : (
-                <NoResult />
+                <NoResult text="No result" iconName="search" />
             )}
         </>
     );
