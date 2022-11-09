@@ -39,7 +39,7 @@ const AddCarScreen = () => {
                 setForm({...form, brand: title});
                 setBrandModal(false);
             }}>
-            <Text>{title}</Text>
+            <Text style={styles.modalOption}>{title}</Text>
         </TouchableWithoutFeedback>
     );
 
@@ -122,6 +122,14 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         borderRadius: 6,
         lineHeight: 28,
+    },
+    modalOption: {
+        fontSize: 18,
+        backgroundColor: '#eee',
+        lineHeight: 28,
+        borderRadius: 8,
+        marginVertical: 4,
+        textAlign: 'center',
     },
 });
 
