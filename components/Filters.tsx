@@ -10,9 +10,10 @@ import {
 } from 'react-native';
 import {CarType} from '../interfaces/CarsInterface';
 import {FiltersType} from '../interfaces/FiltersInterface';
-import FiltersModal from './FiltersModal';
+import BrandModal from './BrandModal';
 import Icon from 'react-native-vector-icons/Feather';
 import {StackParamList} from '../App';
+import FiltersCheckbox from './FiltersCheckbox';
 
 type ResultsNavigationProp = StackNavigationProp<StackParamList, 'Results'>;
 
@@ -30,6 +31,14 @@ const Filters = ({cars}: {cars: CarType[]}) => {
     const [brandModal, setBrandModal] = useState<boolean>(false);
 
     const navigation = useNavigation<ResultsNavigationProp>();
+
+    const modalItem = (title: string): JSX.Element => (
+        <FiltersCheckbox
+            title={title}
+            filters={filters}
+            setFilters={setFilters}
+        />
+    );
 
     return (
         <>
@@ -142,11 +151,10 @@ const Filters = ({cars}: {cars: CarType[]}) => {
                     </View>
                 </TouchableWithoutFeedback>
             </View>
-            <FiltersModal
+            <BrandModal
                 visible={brandModal}
                 setVisible={setBrandModal}
-                filters={filters}
-                setFilters={setFilters}
+                modalItem={modalItem}
             />
         </>
     );
@@ -189,12 +197,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#ddd',
     },
     showResultContainer: {
-        marginVertical: 12,
-        flexDirection: 'row',
-        justifyContent: 'center',
+        width: 300,
+        marginVertical: 20,
+        alignSelf: 'center',
     },
     showResult: {
-        width: 300,
+        width: '100%',
         backgroundColor: '#55f',
         color: '#fff',
         textAlign: 'center',

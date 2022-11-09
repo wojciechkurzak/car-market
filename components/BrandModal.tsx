@@ -8,37 +8,22 @@ import {
     FlatList,
     Text,
 } from 'react-native';
-import {FiltersType} from '../interfaces/FiltersInterface';
 import {carBrands} from '../data/carBrands';
-import FiltersCheckbox from './FiltersCheckbox';
 import Icon from 'react-native-vector-icons/Feather';
 
 type FiltersModalType = {
     visible: boolean;
-    setVisible: Function;
-    filters: FiltersType;
-    setFilters: Function;
+    setVisible: (value: boolean) => void;
+    modalItem: (title: string) => JSX.Element;
 };
 
-const FiltersModal = ({
-    visible,
-    setVisible,
-    filters,
-    setFilters,
-}: FiltersModalType) => {
+const BrandModal = ({visible, setVisible, modalItem}: FiltersModalType) => {
     const [searchBrand, setSearchBrand] = useState<string>('');
 
     const renderItem = ({item}: {item: string}) => {
         if (!item.toLowerCase().includes(searchBrand.toLowerCase()))
             return null;
-        else
-            return (
-                <FiltersCheckbox
-                    title={item}
-                    filters={filters}
-                    setFilters={setFilters}
-                />
-            );
+        else return modalItem(item);
     };
 
     return (
@@ -149,4 +134,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FiltersModal;
+export default BrandModal;
