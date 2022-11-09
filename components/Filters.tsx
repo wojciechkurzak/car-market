@@ -7,27 +7,35 @@ import {
     TouchableWithoutFeedback,
     Text,
     TextInput,
+    FlatList,
 } from 'react-native';
 import {CarType} from '../interfaces/CarsInterface';
-import {FiltersType} from '../interfaces/FiltersInterface';
+import {FiltersType, MinMaxType} from '../interfaces/FiltersInterface';
 import BrandModal from './BrandModal';
 import Icon from 'react-native-vector-icons/Feather';
 import {StackParamList} from '../App';
 import FiltersCheckbox from './FiltersCheckbox';
+import {filterInputs} from '../data/filterInputs';
 
 type ResultsNavigationProp = StackNavigationProp<StackParamList, 'Results'>;
 
+type FilterInputType = {
+    title: string;
+    type: string;
+    min?: string;
+    max?: string;
+};
+
 const Filters = ({cars}: {cars: CarType[]}) => {
     const [filters, setFilters] = useState<FiltersType>({
+        carBrands: [],
         priceMin: '',
         priceMax: '',
         mileageMin: '',
         mileageMax: '',
         productionDateMin: '',
         productionDateMax: '',
-        carBrands: [],
     });
-
     const [brandModal, setBrandModal] = useState<boolean>(false);
 
     const navigation = useNavigation<ResultsNavigationProp>();
@@ -40,123 +48,94 @@ const Filters = ({cars}: {cars: CarType[]}) => {
         />
     );
 
-    return (
-        <>
-            <View style={styles.filtersContainer}>
-                <Text style={styles.tag}>Car Brand</Text>
-                <TouchableWithoutFeedback onPress={() => setBrandModal(true)}>
-                    <View style={styles.carBrandContainer}>
-                        <Text style={styles.carBrandValues}>
-                            {filters.carBrands?.length !== 0
-                                ? filters.carBrands!.map((brand, index) => {
-                                      if (index === 0) return brand;
-                                      else return `, ${brand}`;
-                                  })
-                                : 'Select brands'}
-                        </Text>
-                        {filters.carBrands?.length === 0 ? (
-                            <Icon
-                                style={styles.icon}
-                                name="plus"
-                                size={26}
-                                color="#000"
-                            />
-                        ) : (
-                            <TouchableWithoutFeedback
-                                onPress={() =>
-                                    setFilters({...filters, carBrands: []})
-                                }>
+    const renderItem = ({item}: {item: FilterInputType}): JSX.Element => {
+        if (item.type !== 'brands')
+            return (
+                <>
+                    <Text style={styles.tag}>{item.title}</Text>
+                    <View style={styles.valueContainer}>
+                        <TextInput
+                            style={styles.valueInput}
+                            value={filters[item.min as keyof MinMaxType]}
+                            onChangeText={value =>
+                                setFilters({...filters, [item.min!]: value})
+                            }
+                            keyboardType="numeric"
+                            placeholder="Min"
+                        />
+                        <TextInput
+                            style={styles.valueInput}
+                            value={filters[item.max as keyof MinMaxType]}
+                            onChangeText={value =>
+                                setFilters({...filters, [item.max!]: value})
+                            }
+                            keyboardType="numeric"
+                            placeholder="Max"
+                        />
+                    </View>
+                </>
+            );
+        else
+            return (
+                <>
+                    <Text style={styles.tag}>Car Brand</Text>
+                    <TouchableWithoutFeedback
+                        onPress={() => setBrandModal(true)}>
+                        <View style={styles.carBrandContainer}>
+                            <Text style={styles.carBrandValues}>
+                                {filters.carBrands?.length !== 0
+                                    ? filters.carBrands!.map((brand, index) => {
+                                          if (index === 0) return brand;
+                                          else return `, ${brand}`;
+                                      })
+                                    : 'Select brands'}
+                            </Text>
+                            {filters.carBrands?.length === 0 ? (
                                 <Icon
                                     style={styles.icon}
-                                    name="x"
+                                    name="plus"
                                     size={26}
                                     color="#000"
                                 />
-                            </TouchableWithoutFeedback>
-                        )}
-                    </View>
-                </TouchableWithoutFeedback>
-                <Text style={styles.tag}>Price</Text>
-                <View style={styles.valueContainer}>
-                    <TextInput
-                        style={styles.valueInput}
-                        value={filters.priceMin}
-                        onChangeText={value =>
-                            setFilters({...filters, priceMin: value})
-                        }
-                        keyboardType="numeric"
-                        placeholder="Min"
-                    />
-                    <TextInput
-                        style={styles.valueInput}
-                        value={filters.priceMax}
-                        onChangeText={value =>
-                            setFilters({...filters, priceMax: value})
-                        }
-                        keyboardType="numeric"
-                        placeholder="Max"
-                    />
+                            ) : (
+                                <TouchableWithoutFeedback
+                                    onPress={() =>
+                                        setFilters({...filters, carBrands: []})
+                                    }>
+                                    <Icon
+                                        style={styles.icon}
+                                        name="x"
+                                        size={26}
+                                        color="#000"
+                                    />
+                                </TouchableWithoutFeedback>
+                            )}
+                        </View>
+                    </TouchableWithoutFeedback>
+                </>
+            );
+    };
+
+    return (
+        <View style={styles.filtersContainer}>
+            <FlatList data={filterInputs} renderItem={renderItem} />
+            <TouchableWithoutFeedback
+                onPress={() =>
+                    navigation.navigate('Results', {
+                        cars: cars,
+                        filters: filters,
+                    })
+                }>
+                <View style={styles.showResultContainer}>
+                    <Text style={styles.showResult}>Show results</Text>
                 </View>
-                <Text style={styles.tag}>Mileage</Text>
-                <View style={styles.valueContainer}>
-                    <TextInput
-                        style={styles.valueInput}
-                        value={filters.mileageMin}
-                        onChangeText={value =>
-                            setFilters({...filters, mileageMin: value})
-                        }
-                        keyboardType="numeric"
-                        placeholder="Min"
-                    />
-                    <TextInput
-                        style={styles.valueInput}
-                        value={filters.mileageMax}
-                        onChangeText={value =>
-                            setFilters({...filters, mileageMax: value})
-                        }
-                        keyboardType="numeric"
-                        placeholder="Max"
-                    />
-                </View>
-                <Text style={styles.tag}>Production Date</Text>
-                <View style={styles.valueContainer}>
-                    <TextInput
-                        style={styles.valueInput}
-                        value={filters.productionDateMin}
-                        onChangeText={value =>
-                            setFilters({...filters, productionDateMin: value})
-                        }
-                        keyboardType="numeric"
-                        placeholder="Min"
-                    />
-                    <TextInput
-                        style={styles.valueInput}
-                        value={filters.productionDateMax}
-                        onChangeText={value =>
-                            setFilters({...filters, productionDateMax: value})
-                        }
-                        keyboardType="numeric"
-                        placeholder="Max"
-                    />
-                </View>
-                <TouchableWithoutFeedback
-                    onPress={() =>
-                        navigation.navigate('Results', {
-                            cars: cars,
-                            filters: filters,
-                        })
-                    }>
-                    <View style={styles.showResultContainer}>
-                        <Text style={styles.showResult}>Show results</Text>
-                    </View>
-                </TouchableWithoutFeedback>
-            </View>
+            </TouchableWithoutFeedback>
             <BrandModal
                 visible={brandModal}
                 setVisible={setBrandModal}
                 modalItem={modalItem}
             />
-        </>
+        </View>
     );
 };
 
