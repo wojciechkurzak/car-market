@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        maxHeight: 86,
     },
     showResultContainer: {
         width: 300,
