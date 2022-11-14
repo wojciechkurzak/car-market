@@ -5,11 +5,20 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
 
+type RegisterFormType = {
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+};
+
 const Register = () => {
-    const [username, setUsername] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [form, setForm] = useState<RegisterFormType>({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+    });
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const navigation = useNavigation();
@@ -18,54 +27,60 @@ const Register = () => {
         firestore()
             .collection('Users')
             .doc(userUid)
-            .set({username: username, image: ''});
+            .set({username: form.username, image: ''});
     };
 
     const UpdateUsername = (): void => {
         auth()
-            .currentUser?.updateProfile({displayName: username})
+            .currentUser?.updateProfile({displayName: form.username})
             .then(() => navigation.goBack());
     };
 
     const RegisterAccount = (): void => {
-        auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then(user => SetUser(user.user.uid))
-            .then(() => UpdateUsername())
-            .catch(error => {
-                if (error.code === 'auth/email-already-in-use') {
-                    setErrorMessage('E-mail address is already in use!');
-                }
-                if (error.code === 'auth/invalid-email') {
-                    setErrorMessage('E-mail address is invalid!');
-                }
-            });
+        if (!Object.values(form).some(value => value === '')) {
+            auth()
+                .createUserWithEmailAndPassword(form.email, form.password)
+                .then(user => SetUser(user.user.uid))
+                .then(() => UpdateUsername())
+                .catch(error => {
+                    if (error.code === 'auth/email-already-in-use') {
+                        setErrorMessage('E-mail address is already in use!');
+                    }
+                    if (error.code === 'auth/invalid-email') {
+                        setErrorMessage('E-mail address is invalid!');
+                    }
+                });
+        } else {
+            setErrorMessage('Inputs cannot be empty');
+        }
     };
 
     return (
         <View style={styles.container}>
             <TextInput
-                value={username}
-                onChangeText={setUsername}
+                value={form.username}
+                onChangeText={value => setForm({...form, username: value})}
                 style={styles.input}
                 placeholder="Username"
             />
             <TextInput
-                value={email}
-                onChangeText={setEmail}
+                value={form.email}
+                onChangeText={value => setForm({...form, email: value})}
                 style={styles.input}
                 placeholder="E-mail"
             />
             <TextInput
-                value={password}
-                onChangeText={setPassword}
+                value={form.password}
+                onChangeText={value => setForm({...form, password: value})}
                 style={styles.input}
                 placeholder="Password"
                 secureTextEntry={true}
             />
             <TextInput
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
+                value={form.confirmPassword}
+                onChangeText={value =>
+                    setForm({...form, confirmPassword: value})
+                }
                 style={styles.input}
                 placeholder="Confirm password"
                 secureTextEntry={true}
