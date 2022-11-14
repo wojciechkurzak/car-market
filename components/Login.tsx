@@ -4,39 +4,50 @@ import AuthButton from './AuthButton';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 
+type LoginFormType = {
+    email: string;
+    password: string;
+};
+
 const Login = () => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [form, setForm] = useState<LoginFormType>({
+        email: '',
+        password: '',
+    });
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const navigation = useNavigation();
 
     const LogIn = (): void => {
-        auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(() => navigation.goBack())
-            .catch(error => {
-                if (
-                    error.code === 'auth/user-not-found' ||
-                    error.code === 'auth/invalid-email' ||
-                    error.code === 'auth/wrong-password'
-                )
-                    setErrorMessage('Invalid e-mail or password');
-                else setErrorMessage('Something went wrong');
-            });
+        if (!Object.values(form).some(value => value === '')) {
+            auth()
+                .signInWithEmailAndPassword(form.email, form.password)
+                .then(() => navigation.goBack())
+                .catch(error => {
+                    if (
+                        error.code === 'auth/user-not-found' ||
+                        error.code === 'auth/invalid-email' ||
+                        error.code === 'auth/wrong-password'
+                    )
+                        setErrorMessage('Invalid e-mail or password');
+                    else setErrorMessage('Something went wrong');
+                });
+        } else {
+            setErrorMessage('Inputs cannot be empty');
+        }
     };
 
     return (
         <View style={styles.container}>
             <TextInput
-                value={email}
-                onChangeText={setEmail}
+                value={form.email}
+                onChangeText={value => setForm({...form, email: value})}
                 style={styles.input}
                 placeholder="E-mail"
             />
             <TextInput
-                value={password}
-                onChangeText={setPassword}
+                value={form.password}
+                onChangeText={value => setForm({...form, password: value})}
                 style={styles.input}
                 placeholder="Password"
                 secureTextEntry={true}
