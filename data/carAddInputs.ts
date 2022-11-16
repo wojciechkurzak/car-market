@@ -41,4 +41,24 @@ export const carAddInputs = [
         placeholder: 'Fuel type',
         length: 64,
     },
+    {
+        type: 'country',
+        placeholder: 'Country',
+        length: 64,
+    },
+    {
+        type: 'town',
+        placeholder: 'Town',
+        length: 64,
+    },
+    {
+        type: 'email',
+        placeholder: 'Email',
+        length: 64,
+    },
+    {
+        type: 'phone',
+        placeholder: 'Phone',
+        length: 64,
+    },
 ];

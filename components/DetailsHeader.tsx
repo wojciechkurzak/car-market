@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackParamList} from '../App';
 import {getStorage, setStorage} from '../config/async_storage/asyncStorage';
@@ -23,7 +22,6 @@ const DetailsHeader = () => {
 
     const toggleFavourite = async (): Promise<void> => {
         const value = await getStorage();
-        console.log(value);
         const favouritesArray = favourite
             ? value.filter(item => item !== routes.params.car.id)
             : [...value, routes.params.car.id];

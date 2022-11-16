@@ -1,137 +1,64 @@
-import React, {useState} from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    TextInput,
-    TouchableWithoutFeedback,
-    FlatList,
-} from 'react-native';
+import React, {useState, useContext} from 'react';
 import {CarFormType} from '../interfaces/AddCarInterface';
-import BrandModal from '../components/BrandModal';
-import {carAddInputs} from '../data/carAddInputs';
-import Icon from 'react-native-vector-icons/Feather';
-
-type CarInputType = {
-    type: string;
-    placeholder: string;
-    length: number;
-    multiline?: boolean;
-    numberOfLines?: number;
-};
+import firestore from '@react-native-firebase/firestore';
+import {AuthContext} from '../config/context/AuthContext';
+import {useNavigation} from '@react-navigation/native';
+import AddInputList from '../components/AddInputList';
+import {Asset} from 'react-native-image-picker';
+import AddCarImage from '../components/AddCarImage';
+import AuthButton from '../components/AuthButton';
+import storage from '@react-native-firebase/storage';
 
 const AddCarScreen = () => {
+    const [image, setImage] = useState<Asset | null>(null);
     const [form, setForm] = useState<CarFormType>({
         title: '',
-        brand: '',
+        carBrand: '',
         price: '',
         description: '',
         productionDate: '',
         mileage: '',
         displacement: '',
         fuelType: '',
+        country: '',
+        town: '',
+        email: '',
+        phone: '',
     });
-    const [brandModal, setBrandModal] = useState<boolean>(false);
 
-    const modalItem = (title: string): JSX.Element => (
-        <TouchableWithoutFeedback
-            onPress={() => {
-                setForm({...form, brand: title});
-                setBrandModal(false);
-            }}>
-            <Text style={styles.modalOption}>{title}</Text>
-        </TouchableWithoutFeedback>
-    );
+    const user = useContext(AuthContext);
 
-    const renderItem = ({item}: {item: CarInputType}): JSX.Element => {
-        if (item.type !== 'brand')
-            return (
-                <TextInput
-                    style={styles.formInput}
-                    placeholder={item.placeholder}
-                    maxLength={item.length}
-                    multiline={item.multiline}
-                    numberOfLines={item.numberOfLines}
-                    value={form[item.type as keyof CarFormType]}
-                    onChangeText={text => {
-                        setForm({...form, [item.type]: text});
-                    }}
-                />
-            );
-        else
-            return (
-                <TouchableWithoutFeedback onPress={() => setBrandModal(true)}>
-                    <View style={styles.formInput}>
-                        <Text>{form.brand ? form.brand : 'Select brands'}</Text>
-                        {!form.brand ? (
-                            <Icon name="plus" size={26} color="#000" />
-                        ) : (
-                            <TouchableWithoutFeedback
-                                onPress={() => setForm({...form, brand: ''})}>
-                                <Icon name="x" size={26} color="#000" />
-                            </TouchableWithoutFeedback>
-                        )}
-                    </View>
-                </TouchableWithoutFeedback>
-            );
+    const navigation = useNavigation();
+
+    const addCar = (): void => {
+        if (user && image && !Object.values(form).some(value => value === '')) {
+            firestore()
+                .collection('CarOffers')
+                .add({
+                    ...form,
+                    userId: user.uid,
+                    image: image.fileName,
+                })
+                .then(() => {
+                    storage()
+                        .ref(`carsImages/${image.fileName}`)
+                        .putFile(image.uri!)
+                        .then(() => navigation.goBack());
+                })
+                .catch(error => {
+                    throw error;
+                });
+        }
     };
 
     return (
-        <View style={styles.container}>
-            <FlatList data={carAddInputs} renderItem={renderItem} />
-            <TouchableWithoutFeedback onPress={() => console.log('Dodano!')}>
-                <View style={styles.showResultContainer}>
-                    <Text style={styles.showResult}>Add item</Text>
-                </View>
-            </TouchableWithoutFeedback>
-            <BrandModal
-                visible={brandModal}
-                setVisible={setBrandModal}
-                modalItem={modalItem}
-            />
-        </View>
+        <AddInputList
+            form={form}
+            setForm={setForm}
+            addImage={<AddCarImage image={image} setImage={setImage} />}
+            addButton={<AuthButton name="Add" access={addCar} />}
+        />
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 20,
-    },
-    formInput: {
-        borderWidth: 1,
-        borderColor: '#000',
-        borderRadius: 4,
-        padding: 10,
-        marginTop: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        maxHeight: 86,
-    },
-    showResultContainer: {
-        width: 300,
-        marginVertical: 20,
-        alignSelf: 'center',
-    },
-    showResult: {
-        width: '100%',
-        backgroundColor: '#55f',
-        color: '#fff',
-        textAlign: 'center',
-        fontSize: 16,
-        fontWeight: '700',
-        borderRadius: 6,
-        lineHeight: 28,
-    },
-    modalOption: {
-        fontSize: 18,
-        backgroundColor: '#eee',
-        lineHeight: 28,
-        borderRadius: 8,
-        marginVertical: 4,
-        textAlign: 'center',
-    },
-});
 
 export default AddCarScreen;
