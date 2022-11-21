@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import FavIcon from 'react-native-vector-icons/FontAwesome';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackParamList} from '../App';
 import {getStorage, setStorage} from '../config/async_storage/asyncStorage';
@@ -39,10 +40,10 @@ const DetailsHeader = () => {
                 <Icon name="arrow-left" size={26} color="#fff" />
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback onPress={toggleFavourite}>
-                <Icon
-                    name="star"
+                <FavIcon
+                    name={favourite ? 'star' : 'star-o'}
                     size={26}
-                    color={favourite ? '#f00' : '#fff'}
+                    color={favourite ? '#ffca28' : '#fff'}
                 />
             </TouchableWithoutFeedback>
         </View>

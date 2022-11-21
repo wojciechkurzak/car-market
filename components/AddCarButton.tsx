@@ -5,6 +5,7 @@ import {View, TouchableWithoutFeedback, StyleSheet} from 'react-native';
 import {StackParamList} from '../App';
 import Icon from 'react-native-vector-icons/Feather';
 import {AuthContext} from '../config/context/AuthContext';
+import {buttonColor, iconColor} from '../config/theme/theme';
 
 type AddCarNavigationProp = StackNavigationProp<StackParamList, 'Add'>;
 
@@ -20,7 +21,7 @@ const AddCarButton = () => {
                     navigation.navigate('Add');
                 }}>
                 <View style={styles.container}>
-                    <Icon name="plus" size={28} color="#000" />
+                    <Icon name="plus" size={28} color={iconColor} />
                 </View>
             </TouchableWithoutFeedback>
         )
@@ -29,6 +30,8 @@ const AddCarButton = () => {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: buttonColor,
+        borderRadius: 50,
         marginHorizontal: 14,
     },
 });

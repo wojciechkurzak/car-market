@@ -2,6 +2,7 @@ import React, {useState, useContext, useEffect} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {AuthContext} from '../config/context/AuthContext';
 import storage from '@react-native-firebase/storage';
+import {lightGray, textColor} from '../config/theme/theme';
 
 const Profile = () => {
     const [userImageUrl, setUserImageUrl] = useState<string>('');
@@ -49,13 +50,13 @@ const styles = StyleSheet.create({
     profilePicture: {
         width: 150,
         height: 150,
-        backgroundColor: '#000',
+        backgroundColor: lightGray,
         borderRadius: 100,
         marginVertical: 16,
     },
     profileName: {
         fontSize: 20,
-        color: '#000',
+        color: textColor,
     },
 });
 

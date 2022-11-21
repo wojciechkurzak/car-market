@@ -1,6 +1,7 @@
 import CheckBox from '@react-native-community/checkbox';
 import React, {useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
+import {buttonColor, textColor} from '../config/theme/theme';
 import {FiltersType} from '../interfaces/FiltersInterface';
 
 type FiltersCheckboxType = {
@@ -18,6 +19,7 @@ const FiltersCheckbox = ({title, filters, setFilters}: FiltersCheckboxType) => {
         <View style={styles.container}>
             <CheckBox
                 disabled={false}
+                tintColors={{true: buttonColor, false: '#fff'}}
                 value={toggleCheckBox}
                 onValueChange={value => {
                     const filteredCarBrands = value
@@ -44,8 +46,8 @@ const styles = StyleSheet.create({
         marginVertical: 2,
     },
     text: {
-        color: '#000',
         marginHorizontal: 8,
+        color: textColor,
     },
 });
 

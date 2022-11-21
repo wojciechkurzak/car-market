@@ -7,6 +7,7 @@ import firebase from '@react-native-firebase/app';
 import {CarType} from '../interfaces/CarsInterface';
 import CarList from '../components/CarList';
 import NoResult from '../components/NoResult';
+import {darkGray} from '../config/theme/theme';
 
 const FavouritesScreen = () => {
     const [favouriteCars, setFavouriteCars] = useState<CarType[]>([]);
@@ -64,6 +65,7 @@ const FavouritesScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: darkGray,
     },
 });
 

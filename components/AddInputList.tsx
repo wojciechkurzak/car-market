@@ -11,6 +11,13 @@ import {CarFormType} from '../interfaces/AddCarInterface';
 import BrandModal from '../components/BrandModal';
 import {carAddInputs} from '../data/carAddInputs';
 import Icon from 'react-native-vector-icons/Feather';
+import {
+    darkGray,
+    iconColor,
+    lightGray,
+    placeholderColor,
+    textColor,
+} from '../config/theme/theme';
 
 type CarInputType = {
     type: string;
@@ -51,6 +58,7 @@ const AddInputList = ({
                 <TextInput
                     style={styles.formInput}
                     placeholder={item.placeholder}
+                    placeholderTextColor={placeholderColor}
                     maxLength={item.length}
                     multiline={item.multiline}
                     numberOfLines={item.numberOfLines}
@@ -64,17 +72,22 @@ const AddInputList = ({
             return (
                 <TouchableWithoutFeedback onPress={() => setBrandModal(true)}>
                     <View style={styles.formInput}>
-                        <Text>
+                        <Text
+                            style={
+                                form.carBrand
+                                    ? {color: textColor}
+                                    : {color: placeholderColor}
+                            }>
                             {form.carBrand ? form.carBrand : 'Select brands'}
                         </Text>
                         {!form.carBrand ? (
-                            <Icon name="plus" size={26} color="#000" />
+                            <Icon name="plus" size={26} color={iconColor} />
                         ) : (
                             <TouchableWithoutFeedback
                                 onPress={() =>
                                     setForm({...form, carBrand: ''})
                                 }>
-                                <Icon name="x" size={26} color="#000" />
+                                <Icon name="x" size={26} color={iconColor} />
                             </TouchableWithoutFeedback>
                         )}
                     </View>
@@ -103,11 +116,11 @@ const AddInputList = ({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: darkGray,
     },
     formInput: {
-        borderWidth: 1,
-        borderColor: '#000',
-        borderRadius: 4,
+        borderBottomWidth: 1,
+        borderColor: lightGray,
         padding: 10,
         marginTop: 10,
         flexDirection: 'row',
@@ -115,6 +128,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         maxHeight: 86,
         marginHorizontal: 20,
+        color: textColor,
     },
     showResultContainer: {
         width: 300,
@@ -124,20 +138,20 @@ const styles = StyleSheet.create({
     showResult: {
         width: '100%',
         backgroundColor: '#55f',
-        color: '#fff',
         textAlign: 'center',
         fontSize: 16,
         fontWeight: '700',
         borderRadius: 6,
         lineHeight: 28,
+        color: textColor,
     },
     modalOption: {
         fontSize: 18,
-        backgroundColor: '#eee',
         lineHeight: 28,
         borderRadius: 8,
         marginVertical: 4,
-        textAlign: 'center',
+        marginLeft: 14,
+        color: textColor,
     },
 });
 

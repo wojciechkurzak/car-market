@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import NoImage from './NoImage';
 import {StackParamList} from '../App';
+import {lightGray, textColor} from '../config/theme/theme';
 
 type DetailsNavigationProp = StackNavigationProp<StackParamList, 'Details'>;
 
@@ -55,7 +56,7 @@ const CarCard = ({car}: {car: CarType}) => {
                 <View style={styles.textContainer}>
                     <View>
                         <Text style={styles.title}>{title}</Text>
-                        <Text>
+                        <Text style={styles.bottomInfo}>
                             {productionDate} - {mileage} km - {fuelType} -{' '}
                             {displacement} cm3
                         </Text>
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     cardContainer: {
         width: '90%',
         height: 250,
-        backgroundColor: '#fff',
+        backgroundColor: lightGray,
         elevation: 4,
         borderRadius: 4,
         marginVertical: 10,
@@ -100,22 +101,25 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: '700',
-        color: '#000',
+        color: textColor,
+    },
+    bottomInfo: {
+        color: textColor,
     },
     bottomText: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-end',
-        color: '#000',
+        color: textColor,
     },
     price: {
-        color: '#000',
         fontWeight: '400',
         fontSize: 16,
+        color: textColor,
     },
     address: {
-        color: '#000',
         fontWeight: '400',
+        color: textColor,
     },
 });
 

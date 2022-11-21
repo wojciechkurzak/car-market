@@ -4,6 +4,7 @@ import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {
     CardStyleInterpolators,
     createStackNavigator,
+    StackNavigationOptions,
 } from '@react-navigation/stack';
 import HomeTabs from './components/HomeTabs';
 import AuthScreen from './screens/AuthScreen';
@@ -14,6 +15,8 @@ import {CarType} from './interfaces/CarsInterface';
 import {FiltersType} from './interfaces/FiltersInterface';
 import {AuthContext} from './config/context/AuthContext';
 import AddCarScreen from './screens/AddCarScreen';
+import {StatusBar} from 'react-native';
+import {iconColor, navigationColor, textColor} from './config/theme/theme';
 
 export type StackParamList = {
     Home: undefined;
@@ -42,22 +45,37 @@ const App = () => {
         return subscriber;
     }, []);
 
+    const headerStyles: StackNavigationOptions = {
+        headerStyle: {
+            backgroundColor: navigationColor,
+            borderBottomWidth: 0,
+            elevation: 0,
+            shadowOpacity: 0,
+        },
+        headerTitleStyle: {
+            color: textColor,
+        },
+        headerTintColor: iconColor,
+    };
+
     return (
         <AuthContext.Provider value={user}>
+            <StatusBar backgroundColor={navigationColor} />
             <NavigationContainer>
-                <Stack.Navigator>
+                <Stack.Navigator detachInactiveScreens={false}>
                     <Stack.Screen
                         name="Home"
                         component={HomeTabs}
-                        options={{headerShown: false}}
+                        options={{...headerStyles, headerShown: false}}
                     />
                     <Stack.Screen
                         name="Auth"
                         component={AuthScreen}
                         options={{
+                            ...headerStyles,
+                            headerTitle: 'Authorization',
                             presentation: 'modal',
                             title: 'Log in',
-                            cardStyle: {backgroundColor: '#fff'},
                             cardStyleInterpolator:
                                 CardStyleInterpolators.forHorizontalIOS,
                         }}
@@ -66,6 +84,7 @@ const App = () => {
                         name="Details"
                         component={Details}
                         options={{
+                            ...headerStyles,
                             presentation: 'modal',
                             title: '',
                             headerTransparent: true,
@@ -80,6 +99,7 @@ const App = () => {
                         name="Results"
                         component={Results}
                         options={{
+                            ...headerStyles,
                             presentation: 'modal',
                             cardStyleInterpolator:
                                 CardStyleInterpolators.forHorizontalIOS,
@@ -89,6 +109,8 @@ const App = () => {
                         name="Add"
                         component={AddCarScreen}
                         options={{
+                            ...headerStyles,
+                            headerTitle: 'Create new',
                             presentation: 'modal',
                             cardStyleInterpolator:
                                 CardStyleInterpolators.forHorizontalIOS,

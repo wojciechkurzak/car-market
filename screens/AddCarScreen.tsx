@@ -56,7 +56,7 @@ const AddCarScreen = () => {
             form={form}
             setForm={setForm}
             addImage={<AddCarImage image={image} setImage={setImage} />}
-            addButton={<AuthButton name="Add" access={addCar} />}
+            addButton={<AuthButton name="Create" access={addCar} />}
         />
     );
 };

@@ -3,6 +3,8 @@ import React from 'react';
 import {StackParamList} from '../App';
 import CarList from '../components/CarList';
 import NoResult from '../components/NoResult';
+import {View, StyleSheet} from 'react-native';
+import {darkGray} from '../config/theme/theme';
 
 type ResultsRouteProp = RouteProp<StackParamList, 'Results'>;
 
@@ -32,14 +34,21 @@ const ResultsScreen = () => {
     );
 
     return (
-        <>
+        <View style={styles.container}>
             {filteredCars.length !== 0 ? (
                 <CarList cars={filteredCars} filter={false} />
             ) : (
                 <NoResult text="No result" iconName="search" />
             )}
-        </>
+        </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: darkGray,
+    },
+});
 
 export default ResultsScreen;

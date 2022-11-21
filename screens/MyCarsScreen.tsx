@@ -9,6 +9,7 @@ import firestore from '@react-native-firebase/firestore';
 import {CarType} from '../interfaces/CarsInterface';
 import CarList from '../components/CarList';
 import NoResult from '../components/NoResult';
+import {darkGray, textColor} from '../config/theme/theme';
 
 type AddCarNavigationProp = StackNavigationProp<StackParamList, 'Add'>;
 
@@ -67,7 +68,7 @@ const MyCarsScreen = () => {
                 <View style={styles.container}>
                     <Text style={styles.authStatus}>You are not logged in</Text>
                     <AuthButton
-                        name="Log in"
+                        name="Sign in"
                         access={() => navigation.navigate('Auth')}
                     />
                 </View>
@@ -79,11 +80,13 @@ const MyCarsScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: darkGray,
     },
     authStatus: {
         alignSelf: 'center',
         fontSize: 18,
-        marginTop: 20,
+        marginTop: 80,
+        color: textColor,
     },
 });
 

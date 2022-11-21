@@ -7,6 +7,7 @@ import storage from '@react-native-firebase/storage';
 import firestore, {
     FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
+import {darkGray, lightGray, textColor} from '../config/theme/theme';
 
 type DetailsRouteProp = RouteProp<StackParamList, 'Details'>;
 
@@ -60,85 +61,104 @@ const DetailsScreen = () => {
 
     return (
         <ScrollView overScrollMode="never">
-            <View style={styles.imageContainer}>
-                {image ? (
-                    <Image style={styles.image} source={{uri: image}} />
-                ) : (
-                    <NoImage />
-                )}
-            </View>
-            <View>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.carDetails}>
-                    {productionDate} - {mileage} km - {fuelType} -{' '}
-                    {displacement} cm3
-                </Text>
-                <Text style={styles.priceTag}>Price</Text>
-                <Text style={styles.price}>{price} PLN</Text>
-                <View style={styles.descriptionConatiner}>
-                    <Text style={styles.descriptionTag}>Description</Text>
-                    <Text style={styles.description}>{description}</Text>
+            <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                    {image ? (
+                        <Image style={styles.image} source={{uri: image}} />
+                    ) : (
+                        <NoImage />
+                    )}
                 </View>
-                <Text style={styles.informationsTag}>Car informations</Text>
-                <View style={styles.informationsConatiner}>
-                    <View>
-                        <Text>Production date</Text>
-                        <Text>Mileage</Text>
-                        <Text>Displacement</Text>
-                        <Text>Fuel type</Text>
+                <View>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.carDetails}>
+                        {productionDate} - {mileage} km - {fuelType} -{' '}
+                        {displacement} cm3
+                    </Text>
+                    <Text style={styles.priceTag}>Price</Text>
+                    <Text style={styles.price}>{price} PLN</Text>
+                    <View style={styles.descriptionContainer}>
+                        <Text style={styles.descriptionTag}>Description</Text>
+                        <Text style={styles.description}>{description}</Text>
                     </View>
-                    <View>
-                        <Text style={styles.information}>{productionDate}</Text>
-                        <Text style={styles.information}>{mileage} km</Text>
-                        <Text style={styles.information}>
-                            {displacement} cm3
-                        </Text>
-                        <Text style={styles.information}>{fuelType}</Text>
+                    <Text style={styles.informationsTag}>Car informations</Text>
+                    <View style={styles.informationsConatiner}>
+                        <View>
+                            <Text style={styles.informationLeft}>
+                                Production date
+                            </Text>
+                            <Text style={styles.informationLeft}>Mileage</Text>
+                            <Text style={styles.informationLeft}>
+                                Displacement
+                            </Text>
+                            <Text style={styles.informationLeft}>
+                                Fuel type
+                            </Text>
+                        </View>
+                        <View>
+                            <Text style={styles.informationRight}>
+                                {productionDate}
+                            </Text>
+                            <Text style={styles.informationRight}>
+                                {mileage} km
+                            </Text>
+                            <Text style={styles.informationRight}>
+                                {displacement} cm3
+                            </Text>
+                            <Text style={styles.informationRight}>
+                                {fuelType}
+                            </Text>
+                        </View>
                     </View>
+                    <Text style={styles.userTag}>About seller</Text>
+                    {user !== undefined ? (
+                        <>
+                            <View style={styles.userContainer}>
+                                {userImageUrl.length !== 0 ? (
+                                    <Image
+                                        style={styles.userImage}
+                                        source={{uri: userImageUrl}}
+                                    />
+                                ) : (
+                                    <Image
+                                        style={styles.userImage}
+                                        source={require('../assets/defaultIcon.png')}
+                                    />
+                                )}
+                                <Text style={styles.username}>
+                                    {user.username}
+                                </Text>
+                            </View>
+                            <View style={styles.contactContainer}>
+                                <View>
+                                    {user.contactEmail && <Text>Email</Text>}
+                                    {user.contactPhone && <Text>Phone</Text>}
+                                </View>
+                                <View>
+                                    {user.contactEmail && (
+                                        <Text style={styles.informationRight}>
+                                            {user.contactEmail}
+                                        </Text>
+                                    )}
+                                    {user.contactPhone && (
+                                        <Text style={styles.informationRight}>
+                                            {user.contactPhone}
+                                        </Text>
+                                    )}
+                                </View>
+                            </View>
+                        </>
+                    ) : null}
                 </View>
-                <Text style={styles.userTag}>About seller</Text>
-                {user !== undefined ? (
-                    <>
-                        <View style={styles.userContainer}>
-                            {userImageUrl.length !== 0 ? (
-                                <Image
-                                    style={styles.userImage}
-                                    source={{uri: userImageUrl}}
-                                />
-                            ) : (
-                                <Image
-                                    style={styles.userImage}
-                                    source={require('../assets/defaultIcon.png')}
-                                />
-                            )}
-                            <Text style={styles.username}>{user.username}</Text>
-                        </View>
-                        <View style={styles.contactContainer}>
-                            <View>
-                                {user.contactEmail && <Text>Email</Text>}
-                                {user.contactPhone && <Text>Phone</Text>}
-                            </View>
-                            <View>
-                                {user.contactEmail && (
-                                    <Text style={styles.information}>
-                                        {user.contactEmail}
-                                    </Text>
-                                )}
-                                {user.contactPhone && (
-                                    <Text style={styles.information}>
-                                        {user.contactPhone}
-                                    </Text>
-                                )}
-                            </View>
-                        </View>
-                    </>
-                ) : null}
             </View>
         </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        backgroundColor: darkGray,
+    },
     imageContainer: {
         width: '100%',
         height: 220,
@@ -150,46 +170,49 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: '700',
-        color: '#000',
         paddingHorizontal: 14,
         paddingTop: 10,
+        color: textColor,
     },
     carDetails: {
         marginTop: 4,
         paddingHorizontal: 14,
+        color: '#ccc',
     },
     priceTag: {
         marginTop: 16,
         paddingHorizontal: 14,
+        color: textColor,
     },
     price: {
-        color: '#000',
         fontSize: 26,
         fontWeight: '900',
         lineHeight: 28,
         paddingHorizontal: 14,
+        color: textColor,
     },
-    descriptionConatiner: {
+    descriptionContainer: {
         marginTop: 26,
-        backgroundColor: '#d5d5d5',
+        backgroundColor: lightGray,
         paddingHorizontal: 14,
         paddingVertical: 12,
     },
     descriptionTag: {
         fontSize: 20,
         fontWeight: '700',
-        color: '#000',
+        color: textColor,
     },
     description: {
         marginTop: 10,
         fontSize: 16,
+        color: '#ccc',
     },
     informationsTag: {
         fontSize: 20,
         fontWeight: '700',
-        color: '#000',
         paddingHorizontal: 14,
         marginTop: 20,
+        color: textColor,
     },
     informationsConatiner: {
         flexDirection: 'row',
@@ -198,22 +221,25 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 20,
     },
-    information: {textAlign: 'right'},
+    informationRight: {textAlign: 'right', color: '#ccc'},
+    informationLeft: {
+        color: '#ccc',
+    },
     userTag: {
         fontSize: 20,
         fontWeight: '700',
-        color: '#000',
         paddingHorizontal: 14,
         marginTop: 20,
         paddingTop: 10,
-        backgroundColor: '#d5d5d5',
+        color: textColor,
+        backgroundColor: lightGray,
     },
     userContainer: {
         paddingHorizontal: 14,
         paddingVertical: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#d5d5d5',
+        backgroundColor: lightGray,
     },
     userImage: {
         height: 60,
@@ -221,7 +247,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         marginRight: 18,
     },
-    username: {fontSize: 24, color: '#000'},
+    username: {fontSize: 24, color: textColor},
     contactContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',

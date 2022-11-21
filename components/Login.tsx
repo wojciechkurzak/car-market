@@ -3,6 +3,13 @@ import {TextInput, View, StyleSheet, Text} from 'react-native';
 import AuthButton from './AuthButton';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
+import {
+    darkGray,
+    errorColor,
+    lightGray,
+    placeholderColor,
+    textColor,
+} from '../config/theme/theme';
 
 type LoginFormType = {
     email: string;
@@ -44,16 +51,18 @@ const Login = () => {
                 onChangeText={value => setForm({...form, email: value})}
                 style={styles.input}
                 placeholder="E-mail"
+                placeholderTextColor={placeholderColor}
             />
             <TextInput
                 value={form.password}
                 onChangeText={value => setForm({...form, password: value})}
                 style={styles.input}
                 placeholder="Password"
+                placeholderTextColor={placeholderColor}
                 secureTextEntry={true}
             />
             <Text style={styles.errorMessage}>{errorMessage}</Text>
-            <AuthButton name="Log in" access={LogIn} />
+            <AuthButton name="Sign in" access={LogIn} />
         </View>
     );
 };
@@ -62,18 +71,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 20,
-        paddingHorizontal: 10,
-        backgroundColor: '#fff',
+        paddingHorizontal: 14,
+        backgroundColor: darkGray,
     },
     input: {
-        borderColor: '#666',
+        borderColor: lightGray,
         borderBottomWidth: 2,
         marginBottom: 8,
+        color: textColor,
     },
     errorMessage: {
         fontSize: 16,
-        color: '#f00',
         alignSelf: 'center',
+        color: errorColor,
     },
 });
 

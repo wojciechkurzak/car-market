@@ -4,6 +4,13 @@ import AuthButton from './AuthButton';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
+import {
+    darkGray,
+    errorColor,
+    lightGray,
+    placeholderColor,
+    textColor,
+} from '../config/theme/theme';
 
 type RegisterFormType = {
     username: string;
@@ -62,18 +69,21 @@ const Register = () => {
                 onChangeText={value => setForm({...form, username: value})}
                 style={styles.input}
                 placeholder="Username"
+                placeholderTextColor={placeholderColor}
             />
             <TextInput
                 value={form.email}
                 onChangeText={value => setForm({...form, email: value})}
                 style={styles.input}
                 placeholder="E-mail"
+                placeholderTextColor={placeholderColor}
             />
             <TextInput
                 value={form.password}
                 onChangeText={value => setForm({...form, password: value})}
                 style={styles.input}
                 placeholder="Password"
+                placeholderTextColor={placeholderColor}
                 secureTextEntry={true}
             />
             <TextInput
@@ -83,6 +93,7 @@ const Register = () => {
                 }
                 style={styles.input}
                 placeholder="Confirm password"
+                placeholderTextColor={placeholderColor}
                 secureTextEntry={true}
             />
             <Text style={styles.errorMessage}>{errorMessage}</Text>
@@ -95,18 +106,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 20,
-        paddingHorizontal: 10,
-        backgroundColor: '#fff',
+        paddingHorizontal: 14,
+        backgroundColor: darkGray,
     },
     input: {
-        borderColor: '#666',
+        borderColor: lightGray,
         borderBottomWidth: 2,
         marginBottom: 8,
+        color: textColor,
     },
     errorMessage: {
         fontSize: 16,
-        color: '#f00',
         alignSelf: 'center',
+        color: errorColor,
     },
 });
 

@@ -12,6 +12,12 @@ import {
     Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import {
+    iconColor,
+    lightGray,
+    navigationColor,
+    textColor,
+} from '../config/theme/theme';
 
 type AddCarImageProps = {
     image: Asset | null;
@@ -44,8 +50,8 @@ const AddCarImage = ({image, setImage}: AddCarImageProps) => {
             ) : (
                 <TouchableWithoutFeedback onPress={openCamera}>
                     <View style={styles.addImageContainer}>
-                        <Icon name="plus" size={26} />
-                        <Text>Add image</Text>
+                        <Icon name="plus" size={26} color={iconColor} />
+                        <Text style={{color: textColor}}>Add image</Text>
                     </View>
                 </TouchableWithoutFeedback>
             )}
@@ -61,11 +67,11 @@ const styles = StyleSheet.create({
     addImageContainer: {
         width: 150,
         height: 100,
-        backgroundColor: '#fff',
         borderRadius: 8,
         elevation: 4,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: lightGray,
     },
     image: {
         height: 200,

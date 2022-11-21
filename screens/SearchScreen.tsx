@@ -3,6 +3,7 @@ import {View, StyleSheet, RefreshControl} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {CarType} from '../interfaces/CarsInterface';
 import CarList from '../components/CarList';
+import {darkGray} from '../config/theme/theme';
 
 const SearchScreen = () => {
     const [cars, setCars] = useState<CarType[]>([]);
@@ -62,6 +63,7 @@ const SearchScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: darkGray,
     },
 });
 

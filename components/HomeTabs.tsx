@@ -1,5 +1,8 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+    BottomTabNavigationOptions,
+    createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import {Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SearchScreen from '../screens/SearchScreen';
@@ -7,6 +10,7 @@ import MyCarsScreen from '../screens/MyCarsScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AddCarButton from './AddCarButton';
+import {navigationColor, textColor} from '../config/theme/theme';
 
 export type BottomTabsParamList = {
     Search: undefined;
@@ -22,40 +26,62 @@ const HomeTabs = () => {
         Search: {
             text: 'Search',
             iconName: 'search',
-            defaultSize: 22,
-            focusedSize: 26,
+            iconColor: '#eb1555',
+            defaultSize: 20,
+            focusedSize: 24,
         },
         MyCars: {
             text: 'My cars',
             iconName: 'car',
+            iconColor: '#5d32b9',
             defaultSize: 18,
             focusedSize: 22,
         },
         Favourites: {
             text: 'Favourites',
             iconName: 'star',
-            defaultSize: 22,
-            focusedSize: 26,
+            iconColor: '#ffca28',
+            defaultSize: 20,
+            focusedSize: 24,
         },
         Settings: {
             text: 'Settings',
             iconName: 'gear',
-            defaultSize: 22,
-            focusedSize: 26,
+            iconColor: '#3250B9',
+            defaultSize: 20,
+            focusedSize: 24,
+        },
+    };
+
+    const tabStyles: BottomTabNavigationOptions = {
+        headerStyle: {
+            backgroundColor: navigationColor,
+            borderBottomWidth: 0,
+            elevation: 0,
+            shadowOpacity: 0,
+        },
+        headerTitleStyle: {
+            color: textColor,
         },
     };
 
     return (
         <Tab.Navigator
             screenOptions={({route}) => ({
+                tabBarStyle: {
+                    backgroundColor: navigationColor,
+                    borderTopWidth: 0,
+                    elevation: 0,
+                    shadowOpacity: 0,
+                },
                 tabBarIcon: ({focused}) => {
                     const iconName = tabBarData[route.name].iconName;
                     const iconSize = focused
                         ? tabBarData[route.name].focusedSize
                         : tabBarData[route.name].defaultSize;
                     const iconColor = focused
-                        ? 'rgba(0, 0, 0, 1.0)'
-                        : '#rgba(0, 0, 0, 0.5)';
+                        ? tabBarData[route.name].iconColor
+                        : 'rgba(255, 255, 255, 0.5)';
 
                     return (
                         <Icon
@@ -72,8 +98,8 @@ const HomeTabs = () => {
                         <Text
                             style={{
                                 color: focused
-                                    ? 'rgba(0, 0, 0, 1.0)'
-                                    : 'rgba(0, 0, 0, 0.5)',
+                                    ? 'rgba(255, 255, 255, 1.0)'
+                                    : 'rgba(255, 255, 255, 0.5)',
                                 fontSize: 12,
                                 marginBottom: 2,
                             }}>
@@ -82,16 +108,36 @@ const HomeTabs = () => {
                     );
                 },
             })}>
-            <Tab.Screen name="Search" component={SearchScreen} />
+            <Tab.Screen
+                name="Search"
+                component={SearchScreen}
+                options={{
+                    ...tabStyles,
+                }}
+            />
             <Tab.Screen
                 name="MyCars"
                 component={MyCarsScreen}
                 options={{
+                    ...tabStyles,
+                    headerTitle: 'My cars',
                     headerRight: () => <AddCarButton />,
                 }}
             />
-            <Tab.Screen name="Favourites" component={FavouritesScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Tab.Screen
+                name="Favourites"
+                component={FavouritesScreen}
+                options={{
+                    ...tabStyles,
+                }}
+            />
+            <Tab.Screen
+                name="Settings"
+                component={SettingsScreen}
+                options={{
+                    ...tabStyles,
+                }}
+            />
         </Tab.Navigator>
     );
 };

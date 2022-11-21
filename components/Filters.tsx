@@ -16,6 +16,13 @@ import Icon from 'react-native-vector-icons/Feather';
 import {StackParamList} from '../App';
 import FiltersCheckbox from './FiltersCheckbox';
 import {filterInputs} from '../data/filterInputs';
+import {
+    buttonColor,
+    iconColor,
+    lightGray,
+    placeholderColor,
+    textColor,
+} from '../config/theme/theme';
 
 type ResultsNavigationProp = StackNavigationProp<StackParamList, 'Results'>;
 
@@ -62,6 +69,7 @@ const Filters = ({cars}: {cars: CarType[]}) => {
                             }
                             keyboardType="numeric"
                             placeholder="Min"
+                            placeholderTextColor={placeholderColor}
                         />
                         <TextInput
                             style={styles.valueInput}
@@ -71,6 +79,7 @@ const Filters = ({cars}: {cars: CarType[]}) => {
                             }
                             keyboardType="numeric"
                             placeholder="Max"
+                            placeholderTextColor={placeholderColor}
                         />
                     </View>
                 </>
@@ -78,7 +87,7 @@ const Filters = ({cars}: {cars: CarType[]}) => {
         else
             return (
                 <>
-                    <Text style={styles.tag}>Car Brand</Text>
+                    <Text style={styles.tag}>Brand</Text>
                     <TouchableWithoutFeedback
                         onPress={() => setBrandModal(true)}>
                         <View style={styles.carBrandContainer}>
@@ -95,7 +104,7 @@ const Filters = ({cars}: {cars: CarType[]}) => {
                                     style={styles.icon}
                                     name="plus"
                                     size={26}
-                                    color="#000"
+                                    color={iconColor}
                                 />
                             ) : (
                                 <TouchableWithoutFeedback
@@ -106,7 +115,7 @@ const Filters = ({cars}: {cars: CarType[]}) => {
                                         style={styles.icon}
                                         name="x"
                                         size={26}
-                                        color="#000"
+                                        color={iconColor}
                                     />
                                 </TouchableWithoutFeedback>
                             )}
@@ -142,23 +151,23 @@ const Filters = ({cars}: {cars: CarType[]}) => {
 const styles = StyleSheet.create({
     filtersContainer: {
         width: '100%',
-        backgroundColor: '#fff',
         paddingHorizontal: 30,
     },
     tag: {
         fontSize: 16,
-        color: '#000',
+        color: textColor,
         fontWeight: '500',
         marginTop: 12,
     },
     carBrandContainer: {
         flexDirection: 'row',
         borderBottomWidth: 1,
-        borderBottomColor: '#444',
+        borderBottomColor: lightGray,
     },
     carBrandValues: {
         flex: 1,
-        padding: 4,
+        paddingVertical: 8,
+        color: textColor,
     },
     icon: {
         alignSelf: 'flex-start',
@@ -173,7 +182,7 @@ const styles = StyleSheet.create({
         padding: 4,
         paddingHorizontal: 8,
         borderRadius: 6,
-        backgroundColor: '#ddd',
+        backgroundColor: lightGray,
     },
     showResultContainer: {
         width: 300,
@@ -182,8 +191,8 @@ const styles = StyleSheet.create({
     },
     showResult: {
         width: '100%',
-        backgroundColor: '#55f',
-        color: '#fff',
+        backgroundColor: buttonColor,
+        color: textColor,
         textAlign: 'center',
         fontSize: 16,
         fontWeight: '700',

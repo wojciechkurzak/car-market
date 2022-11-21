@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {iconColor, textColor} from '../config/theme/theme';
 
 type NoResultsProps = {
     text: string;
@@ -10,7 +11,7 @@ type NoResultsProps = {
 const NoResult = ({text, iconName}: NoResultsProps) => {
     return (
         <View style={styles.container}>
-            <Icon name={iconName} size={30} color="#555" />
+            <Icon name={iconName} size={30} color={iconColor} />
             <Text style={styles.text}>{text}</Text>
         </View>
     );
@@ -21,9 +22,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        opacity: 0.5,
     },
     text: {
         fontSize: 18,
+        color: textColor,
     },
 });
 

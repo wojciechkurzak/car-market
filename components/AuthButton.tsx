@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableWithoutFeedback, View, Text, StyleSheet} from 'react-native';
+import {buttonColor, textColor} from '../config/theme/theme';
 
 type AuthButtonType = {
     name: string;
@@ -19,13 +20,13 @@ const AuthButton = ({name, access}: AuthButtonType) => {
 const styles = StyleSheet.create({
     button: {
         width: 300,
-        backgroundColor: '#55f',
+        backgroundColor: buttonColor,
         alignSelf: 'center',
-        marginTop: 20,
+        marginVertical: 20,
         borderRadius: 4,
     },
     text: {
-        color: '#fff',
+        color: textColor,
         fontSize: 16,
         fontWeight: '700',
         lineHeight: 34,

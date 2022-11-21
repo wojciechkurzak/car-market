@@ -10,6 +10,14 @@ import {
 } from 'react-native';
 import {carBrands} from '../data/carBrands';
 import Icon from 'react-native-vector-icons/Feather';
+import {
+    buttonColor,
+    darkGray,
+    lightGray,
+    textColor,
+    placeholderColor,
+    iconColor,
+} from '../config/theme/theme';
 
 type FiltersModalType = {
     visible: boolean;
@@ -43,6 +51,7 @@ const BrandModal = ({visible, setVisible, modalItem}: FiltersModalType) => {
                                 value={searchBrand}
                                 onChangeText={value => setSearchBrand(value)}
                                 placeholder="Type here"
+                                placeholderTextColor={placeholderColor}
                                 style={styles.input}
                             />
                             {searchBrand.length !== 0 && (
@@ -52,7 +61,7 @@ const BrandModal = ({visible, setVisible, modalItem}: FiltersModalType) => {
                                         style={styles.clearIcon}
                                         name="x"
                                         size={26}
-                                        color="#000"
+                                        color={iconColor}
                                     />
                                 </TouchableWithoutFeedback>
                             )}
@@ -67,7 +76,7 @@ const BrandModal = ({visible, setVisible, modalItem}: FiltersModalType) => {
                         <View style={styles.bottomTab}>
                             <TouchableWithoutFeedback
                                 onPress={() => setVisible(false)}>
-                                <Text style={styles.bottomText}>Close</Text>
+                                <Text style={styles.button}>Close</Text>
                             </TouchableWithoutFeedback>
                         </View>
                     </View>
@@ -86,16 +95,16 @@ const styles = StyleSheet.create({
     },
     closeContainer: {
         position: 'absolute',
-        backgroundColor: 'rgba(0,0,0,0.5)',
         height: '100%',
         width: '100%',
+        backgroundColor: 'rgba(0,0,0,0.5)',
     },
     modal: {
         width: 300,
         height: 560,
-        backgroundColor: '#fff',
         paddingHorizontal: 8,
         borderRadius: 6,
+        backgroundColor: darkGray,
     },
     inputContainer: {
         flexDirection: 'row',
@@ -103,13 +112,13 @@ const styles = StyleSheet.create({
         paddingVertical: 6,
         paddingHorizontal: 8,
         borderBottomWidth: 2,
-        borderBottomColor: '#888',
+        borderBottomColor: lightGray,
     },
     input: {
         width: 250,
         flexGrow: 1,
         fontSize: 19,
-        color: '#000',
+        color: textColor,
     },
     clearIcon: {
         alignSelf: 'center',
@@ -120,17 +129,17 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
         borderTopWidth: 2,
-        borderTopColor: '#888',
+        borderTopColor: lightGray,
     },
-    bottomText: {
+    button: {
         width: 70,
         fontSize: 18,
-        backgroundColor: '#55f',
-        color: '#fff',
         textAlign: 'center',
         fontWeight: '500',
         borderRadius: 6,
         lineHeight: 28,
+        color: textColor,
+        backgroundColor: buttonColor,
     },
 });
 
