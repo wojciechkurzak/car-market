@@ -11,6 +11,7 @@ import FavouritesScreen from '../screens/FavouritesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AddCarButton from './AddCarButton';
 import {navigationColor, textColor} from '../config/theme/theme';
+import SignOutButton from './SignOutButton';
 
 export type BottomTabsParamList = {
     Search: undefined;
@@ -136,6 +137,7 @@ const HomeTabs = () => {
                 component={SettingsScreen}
                 options={{
                     ...tabStyles,
+                    headerRight: () => <SignOutButton />,
                 }}
             />
         </Tab.Navigator>

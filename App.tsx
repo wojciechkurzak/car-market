@@ -17,6 +17,7 @@ import {AuthContext} from './config/context/AuthContext';
 import AddCarScreen from './screens/AddCarScreen';
 import {StatusBar} from 'react-native';
 import {iconColor, navigationColor, textColor} from './config/theme/theme';
+import ProfileUpdate from './screens/ProfileUpdate';
 
 export type StackParamList = {
     Home: undefined;
@@ -24,6 +25,7 @@ export type StackParamList = {
     Details: {car: CarType};
     Results: {cars: CarType[]; filters: FiltersType};
     Add: undefined;
+    Update: {imageUrl: string | null; username: string};
 };
 
 const Stack = createStackNavigator<StackParamList>();
@@ -111,6 +113,17 @@ const App = () => {
                         options={{
                             ...headerStyles,
                             headerTitle: 'Create new',
+                            presentation: 'modal',
+                            cardStyleInterpolator:
+                                CardStyleInterpolators.forHorizontalIOS,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="Update"
+                        component={ProfileUpdate}
+                        options={{
+                            ...headerStyles,
+                            headerTitle: 'Profile',
                             presentation: 'modal',
                             cardStyleInterpolator:
                                 CardStyleInterpolators.forHorizontalIOS,

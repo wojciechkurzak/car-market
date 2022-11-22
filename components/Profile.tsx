@@ -1,36 +1,21 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {AuthContext} from '../config/context/AuthContext';
-import storage from '@react-native-firebase/storage';
+
 import {buttonColor, lightGray, textColor} from '../config/theme/theme';
 
-const Profile = () => {
-    const [userImageUrl, setUserImageUrl] = useState<string>('');
+type ProfileProps = {
+    imageUrl: string | null;
+    username: string;
+};
 
-    const user = useContext(AuthContext);
-
-    const downloadUserImage = async (): Promise<void> => {
-        if (user === null || user.photoURL === null) return;
-        const imageRef = storage().ref(
-            `usersImages/${user.uid}/${user.photoURL}`,
-        );
-        const url = await imageRef.getDownloadURL().catch(error => {
-            throw error;
-        });
-        setUserImageUrl(url);
-    };
-
-    useEffect(() => {
-        downloadUserImage();
-    }, []);
-
+const Profile = ({imageUrl, username}: ProfileProps) => {
     return (
         <View style={styles.container}>
             <View style={styles.pictureContainer}>
-                {userImageUrl.length !== 0 ? (
+                {imageUrl ? (
                     <Image
                         style={styles.profilePicture}
-                        source={{uri: userImageUrl}}
+                        source={{uri: imageUrl}}
                     />
                 ) : (
                     <Image
@@ -39,7 +24,7 @@ const Profile = () => {
                     />
                 )}
             </View>
-            <Text style={styles.profileName}>{user?.displayName}</Text>
+            <Text style={styles.profileName}>{username}</Text>
         </View>
     );
 };
