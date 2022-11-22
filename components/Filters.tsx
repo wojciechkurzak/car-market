@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
         padding: 4,
         paddingHorizontal: 8,
         borderRadius: 6,
+        color: textColor,
         backgroundColor: lightGray,
     },
     showResultContainer: {
