@@ -1,7 +1,7 @@
 import React, {useContext, useCallback, useState, useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {AuthContext} from '../config/context/AuthContext';
-import AuthButton from '../components/AuthButton';
+import Button from '../components/Button';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../App';
@@ -67,9 +67,9 @@ const MyCarsScreen = () => {
             ) : (
                 <View style={styles.container}>
                     <Text style={styles.authStatus}>You are not logged in</Text>
-                    <AuthButton
+                    <Button
                         name="Sign in"
-                        access={() => navigation.navigate('Auth')}
+                        onPress={() => navigation.navigate('Auth')}
                     />
                 </View>
             )}

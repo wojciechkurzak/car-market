@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useContext} from 'react';
-import {View, TouchableWithoutFeedback, StyleSheet} from 'react-native';
+import {View, StyleSheet, TouchableNativeFeedback} from 'react-native';
 import {StackParamList} from '../App';
 import Icon from 'react-native-vector-icons/Feather';
 import {AuthContext} from '../config/context/AuthContext';
@@ -16,14 +16,14 @@ const AddCarButton = () => {
 
     return (
         user && (
-            <TouchableWithoutFeedback
+            <TouchableNativeFeedback
                 onPress={() => {
                     navigation.navigate('Add');
                 }}>
                 <View style={styles.container}>
                     <Icon name="plus" size={28} color={iconColor} />
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableNativeFeedback>
         )
     );
 };

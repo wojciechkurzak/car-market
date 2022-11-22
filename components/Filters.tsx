@@ -23,6 +23,7 @@ import {
     placeholderColor,
     textColor,
 } from '../config/theme/theme';
+import Button from './Button';
 
 type ResultsNavigationProp = StackNavigationProp<StackParamList, 'Results'>;
 
@@ -128,17 +129,16 @@ const Filters = ({cars}: {cars: CarType[]}) => {
     return (
         <View style={styles.filtersContainer}>
             <FlatList data={filterInputs} renderItem={renderItem} />
-            <TouchableWithoutFeedback
+            <Button
+                name="Show result"
                 onPress={() =>
                     navigation.navigate('Results', {
                         cars: cars,
                         filters: filters,
                     })
-                }>
-                <View style={styles.showResultContainer}>
-                    <Text style={styles.showResult}>Show results</Text>
-                </View>
-            </TouchableWithoutFeedback>
+                }
+            />
+
             <BrandModal
                 visible={brandModal}
                 setVisible={setBrandModal}

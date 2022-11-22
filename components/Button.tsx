@@ -1,19 +1,19 @@
 import React from 'react';
-import {TouchableWithoutFeedback, View, Text, StyleSheet} from 'react-native';
+import {TouchableNativeFeedback, View, Text, StyleSheet} from 'react-native';
 import {buttonColor, textColor} from '../config/theme/theme';
 
-type AuthButtonType = {
+type ButtonType = {
     name: string;
-    access: () => void;
+    onPress: () => void;
 };
 
-const AuthButton = ({name, access}: AuthButtonType) => {
+const Button = ({name, onPress}: ButtonType) => {
     return (
-        <TouchableWithoutFeedback onPress={access}>
+        <TouchableNativeFeedback onPress={onPress}>
             <View style={styles.button}>
                 <Text style={styles.text}>{name}</Text>
             </View>
-        </TouchableWithoutFeedback>
+        </TouchableNativeFeedback>
     );
 };
 
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AuthButton;
+export default Button;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {TextInput, View, StyleSheet, Text} from 'react-native';
-import AuthButton from './AuthButton';
+import Button from './Button';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -62,7 +62,7 @@ const Login = () => {
                 secureTextEntry={true}
             />
             <Text style={styles.errorMessage}>{errorMessage}</Text>
-            <AuthButton name="Sign in" access={LogIn} />
+            <Button name="Sign in" onPress={LogIn} />
         </View>
     );
 };

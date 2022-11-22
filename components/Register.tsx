@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {TextInput, View, StyleSheet, Text} from 'react-native';
-import AuthButton from './AuthButton';
+import Button from './Button';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
@@ -97,7 +97,7 @@ const Register = () => {
                 secureTextEntry={true}
             />
             <Text style={styles.errorMessage}>{errorMessage}</Text>
-            <AuthButton name="Register" access={RegisterAccount} />
+            <Button name="Register" onPress={RegisterAccount} />
         </View>
     );
 };

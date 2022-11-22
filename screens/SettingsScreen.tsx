@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useContext} from 'react';
 import {StackParamList} from '../App';
-import AuthButton from '../components/AuthButton';
+import Button from '../components/Button';
 import Profile from '../components/Profile';
 import {Text, StyleSheet, View} from 'react-native';
 import {AuthContext} from '../config/context/AuthContext';
@@ -21,17 +21,14 @@ const SettingsScreen = () => {
             {user ? (
                 <>
                     <Profile />
-                    <AuthButton
-                        name="Sign out"
-                        access={() => auth().signOut()}
-                    />
+                    <Button name="Sign out" onPress={() => auth().signOut()} />
                 </>
             ) : (
                 <>
                     <Text style={styles.authStatus}>You are not logged in</Text>
-                    <AuthButton
+                    <Button
                         name="Sign in"
-                        access={() => navigation.navigate('Auth')}
+                        onPress={() => navigation.navigate('Auth')}
                     />
                 </>
             )}

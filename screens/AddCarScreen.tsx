@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import AddInputList from '../components/AddInputList';
 import {Asset} from 'react-native-image-picker';
 import AddCarImage from '../components/AddCarImage';
-import AuthButton from '../components/AuthButton';
+import Button from '../components/Button';
 import storage from '@react-native-firebase/storage';
 
 const AddCarScreen = () => {
@@ -56,7 +56,7 @@ const AddCarScreen = () => {
             form={form}
             setForm={setForm}
             addImage={<AddCarImage image={image} setImage={setImage} />}
-            addButton={<AuthButton name="Create" access={addCar} />}
+            addButton={<Button name="Create" onPress={addCar} />}
         />
     );
 };
