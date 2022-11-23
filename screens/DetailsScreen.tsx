@@ -28,6 +28,8 @@ const DetailsScreen = () => {
         displacement,
         price,
         description,
+        email,
+        phone,
         userId,
     } = route.params.car;
 
@@ -131,26 +133,26 @@ const DetailsScreen = () => {
                             </View>
                             <View style={styles.contactContainer}>
                                 <View>
-                                    {user.contactEmail && (
+                                    {email && (
                                         <Text style={styles.informationLeft}>
                                             Email
                                         </Text>
                                     )}
-                                    {user.contactPhone && (
+                                    {phone && (
                                         <Text style={styles.informationLeft}>
                                             Phone
                                         </Text>
                                     )}
                                 </View>
                                 <View>
-                                    {user.contactEmail && (
+                                    {email && (
                                         <Text style={styles.informationRight}>
-                                            {user.contactEmail}
+                                            {email}
                                         </Text>
                                     )}
-                                    {user.contactPhone && (
+                                    {phone && (
                                         <Text style={styles.informationRight}>
-                                            {user.contactPhone}
+                                            {phone}
                                         </Text>
                                     )}
                                 </View>
