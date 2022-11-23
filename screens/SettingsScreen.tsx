@@ -29,8 +29,6 @@ const SettingsScreen = () => {
         setImageUrl(url);
     };
 
-    console.log(imageUrl);
-
     useEffect(() => {
         downloadUserImage();
     }, [user]);

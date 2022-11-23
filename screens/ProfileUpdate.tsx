@@ -29,30 +29,23 @@ const ProfileUpdate = () => {
     const route = useRoute<ProfileUpdateRouteProp>();
     const {imageUrl, username} = route.params;
 
-    const updateProfile = (): void => {
-        firestore()
+    const updateProfile = async (): Promise<void> => {
+        await firestore()
             .collection('Users')
             .doc(user!.uid)
             .set({
                 username: newUsername ? newUsername : user!.displayName,
                 image: newImage ? newImage.fileName : user!.photoURL,
-            })
-            .then(() => {
-                if (!newImage) return;
-                storage()
-                    .ref(`usersImages/${user!.uid}/${newImage!.fileName}`)
-                    .putFile(newImage!.uri!);
-            })
-            .then(() =>
-                auth().currentUser?.updateProfile({
-                    displayName: newUsername ? newUsername : user!.displayName,
-                    photoURL: newImage ? newImage.fileName : user!.photoURL,
-                }),
-            )
-            .then(() => navigation.goBack())
-            .catch(error => {
-                throw error;
             });
+        await storage()
+            .ref(`usersImages/${user!.uid}/${newImage!.fileName}`)
+            .putFile(newImage!.uri!);
+
+        await auth().currentUser!.updateProfile({
+            displayName: newUsername ? newUsername : user!.displayName,
+            photoURL: newImage ? newImage.fileName : user!.photoURL,
+        });
+        navigation.goBack();
     };
 
     return (
