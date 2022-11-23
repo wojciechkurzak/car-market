@@ -131,8 +131,16 @@ const DetailsScreen = () => {
                             </View>
                             <View style={styles.contactContainer}>
                                 <View>
-                                    {user.contactEmail && <Text>Email</Text>}
-                                    {user.contactPhone && <Text>Phone</Text>}
+                                    {user.contactEmail && (
+                                        <Text style={styles.informationLeft}>
+                                            Email
+                                        </Text>
+                                    )}
+                                    {user.contactPhone && (
+                                        <Text style={styles.informationLeft}>
+                                            Phone
+                                        </Text>
+                                    )}
                                 </View>
                                 <View>
                                     {user.contactEmail && (
