@@ -45,7 +45,7 @@ const UpdateImage = ({imageUrl, newImage, setNewImage}: UpdateImageProps) => {
                 ) : (
                     <>
                         <View style={styles.textContainer}>
-                            <Text style={styles.text}>Update</Text>
+                            <Text style={styles.text}>Pick image</Text>
                         </View>
                         {imageUrl ? (
                             <Image

@@ -41,8 +41,7 @@ const ProfileUpdate = () => {
                 if (!newImage) return;
                 storage()
                     .ref(`usersImages/${user!.uid}/${newImage!.fileName}`)
-                    .putFile(newImage!.uri!)
-                    .catch(() => console.log('nie wysyla pliku'));
+                    .putFile(newImage!.uri!);
             })
             .then(() =>
                 auth().currentUser?.updateProfile({
@@ -51,7 +50,9 @@ const ProfileUpdate = () => {
                 }),
             )
             .then(() => navigation.goBack())
-            .catch(() => console.log('error'));
+            .catch(error => {
+                throw error;
+            });
     };
 
     return (
