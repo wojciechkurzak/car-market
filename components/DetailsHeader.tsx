@@ -6,10 +6,12 @@ import FavIcon from 'react-native-vector-icons/FontAwesome';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackParamList} from '../App';
 import {getStorage, setStorage} from '../config/async_storage/asyncStorage';
+import Animated from 'react-native-reanimated';
+import {navigationColor} from '../config/theme/theme';
 
 type DetailsRouteProp = RouteProp<StackParamList, 'Details'>;
 
-const DetailsHeader = () => {
+const DetailsHeader = ({animation}: any) => {
     const [favourite, setFavourite] = useState<boolean>(false);
 
     const navigation = useNavigation();
@@ -35,7 +37,7 @@ const DetailsHeader = () => {
     }, []);
 
     return (
-        <View style={styles.container}>
+        <Animated.View style={[styles.container, animation]}>
             <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                 <Icon name="arrow-left" size={26} color="#fff" />
             </TouchableWithoutFeedback>
@@ -46,15 +48,19 @@ const DetailsHeader = () => {
                     color={favourite ? '#ffca28' : '#fff'}
                 />
             </TouchableWithoutFeedback>
-        </View>
+        </Animated.View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
+        position: 'absolute',
+        width: '100%',
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        backgroundColor: 'rgba(52, 52, 52, 0.8)',
+        zIndex: 1,
     },
 });
 

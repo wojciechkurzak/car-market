@@ -1,5 +1,5 @@
-import {RouteProp, useRoute} from '@react-navigation/native';
-import React from 'react';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import React, {useEffect, useLayoutEffect, useRef} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {StackParamList} from '../App';
 import {darkGray, lightGray} from '../config/theme/theme';
@@ -11,6 +11,13 @@ import Informations from '../components/car_info/Informations';
 import About from '../components/car_info/About';
 import Contact from '../components/car_info/Contact';
 import CarImage from '../components/car_info/CarImage';
+import Animated, {
+    interpolateColor,
+    useAnimatedScrollHandler,
+    useAnimatedStyle,
+    useSharedValue,
+} from 'react-native-reanimated';
+import DetailsHeader from '../components/DetailsHeader';
 
 type DetailsRouteProp = RouteProp<StackParamList, 'Details'>;
 
@@ -31,41 +38,63 @@ const DetailsScreen = () => {
         userId,
     } = route.params.car;
 
+    const scrollY = useSharedValue(0);
+
+    const animation = useAnimatedStyle(() => {
+        const backgroundColor = interpolateColor(
+            scrollY.value,
+            [170, 200],
+            ['rgba(17, 17, 17, 0)', 'rgba(17, 17, 17, 1)'],
+        );
+
+        return {backgroundColor};
+    });
+
+    const scrollHandler = useAnimatedScrollHandler(event => {
+        scrollY.value = event.contentOffset.y;
+    });
+
     return (
-        <ScrollView overScrollMode="never">
-            <View style={styles.container}>
-                <View style={styles.imageBox}>
-                    <CarImage image={image} />
+        <View style={{position: 'relative'}}>
+            <DetailsHeader animation={animation} />
+            <Animated.ScrollView
+                overScrollMode="never"
+                scrollEventThrottle={16}
+                onScroll={scrollHandler}>
+                <View style={styles.container}>
+                    <View style={styles.imageBox}>
+                        <CarImage image={image} />
+                    </View>
+                    <View style={styles.darkBox}>
+                        <Title title={title} />
+                        <Details
+                            productionDate={productionDate}
+                            mileage={mileage}
+                            fuelType={fuelType}
+                            displacement={displacement}
+                        />
+                        <Price price={price} />
+                    </View>
+                    <View style={styles.lightBox}>
+                        <Description description={description} />
+                    </View>
+                    <View style={styles.darkBox}>
+                        <Informations
+                            productionDate={productionDate}
+                            mileage={mileage}
+                            fuelType={fuelType}
+                            displacement={displacement}
+                        />
+                    </View>
+                    <View style={styles.lightBox}>
+                        <About userId={userId} />
+                    </View>
+                    <View style={styles.darkBox}>
+                        <Contact email={email} phone={phone} />
+                    </View>
                 </View>
-                <View style={styles.darkBox}>
-                    <Title title={title} />
-                    <Details
-                        productionDate={productionDate}
-                        mileage={mileage}
-                        fuelType={fuelType}
-                        displacement={displacement}
-                    />
-                    <Price price={price} />
-                </View>
-                <View style={styles.lightBox}>
-                    <Description description={description} />
-                </View>
-                <View style={styles.darkBox}>
-                    <Informations
-                        productionDate={productionDate}
-                        mileage={mileage}
-                        fuelType={fuelType}
-                        displacement={displacement}
-                    />
-                </View>
-                <View style={styles.lightBox}>
-                    <About userId={userId} />
-                </View>
-                <View style={styles.darkBox}>
-                    <Contact email={email} phone={phone} />
-                </View>
-            </View>
-        </ScrollView>
+            </Animated.ScrollView>
+        </View>
     );
 };
 

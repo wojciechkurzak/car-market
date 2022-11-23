@@ -86,15 +86,9 @@ const App = () => {
                         name="Details"
                         component={Details}
                         options={{
-                            ...headerStyles,
-                            presentation: 'modal',
-                            title: '',
-                            headerTransparent: true,
+                            headerShown: false,
                             cardStyleInterpolator:
                                 CardStyleInterpolators.forHorizontalIOS,
-                            header: () => {
-                                return <DetailsHeader />;
-                            },
                         }}
                     />
                     <Stack.Screen
