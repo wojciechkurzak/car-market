@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
     View,
     Text,
@@ -13,6 +13,7 @@ import {carAddInputs} from '../data/carAddInputs';
 import Icon from 'react-native-vector-icons/Feather';
 import {
     darkGray,
+    errorColor,
     iconColor,
     lightGray,
     placeholderColor,
@@ -32,6 +33,7 @@ type AddInputListProps = {
     setForm: (value: CarFormType) => void;
     addImage: JSX.Element;
     addButton: JSX.Element;
+    error: string;
 };
 
 const AddInputList = ({
@@ -39,8 +41,11 @@ const AddInputList = ({
     setForm,
     addImage,
     addButton,
+    error,
 }: AddInputListProps) => {
     const [brandModal, setBrandModal] = useState<boolean>(false);
+
+    let listRef: any = useRef();
 
     const modalItem = (title: string): JSX.Element => (
         <TouchableWithoutFeedback
@@ -101,8 +106,19 @@ const AddInputList = ({
                 data={carAddInputs}
                 renderItem={renderItem}
                 overScrollMode="never"
+                ref={listRef}
+                onContentSizeChange={() =>
+                    error && listRef.current.scrollToEnd({animated: true})
+                }
                 ListHeaderComponent={addImage}
-                ListFooterComponent={addButton}
+                ListFooterComponent={() => (
+                    <View>
+                        {error && (
+                            <Text style={styles.errorMessage}>{error}</Text>
+                        )}
+                        {addButton}
+                    </View>
+                )}
             />
             <BrandModal
                 visible={brandModal}
@@ -153,6 +169,12 @@ const styles = StyleSheet.create({
         marginVertical: 4,
         marginLeft: 14,
         color: textColor,
+    },
+    errorMessage: {
+        marginTop: 4,
+        fontSize: 16,
+        alignSelf: 'center',
+        color: errorColor,
     },
 });
 

@@ -25,30 +25,34 @@ const AddCarScreen = () => {
         email: '',
         phone: '',
     });
+    const [error, setError] = useState<string>('');
 
     const user = useContext(AuthContext);
 
     const navigation = useNavigation();
 
     const addCar = (): void => {
-        if (user && image && !Object.values(form).some(value => value === '')) {
-            firestore()
-                .collection('CarOffers')
-                .add({
-                    ...form,
-                    userId: user.uid,
-                    image: image.fileName,
-                })
-                .then(() => {
-                    storage()
-                        .ref(`carsImages/${image.fileName}`)
-                        .putFile(image.uri!)
-                        .then(() => navigation.goBack());
-                })
-                .catch(error => {
-                    throw error;
-                });
+        if (!user) return;
+        if (!image || Object.values(form).some(value => value === '')) {
+            setError('Inputs cannot be empty');
+            return;
         }
+        firestore()
+            .collection('CarOffers')
+            .add({
+                ...form,
+                userId: user.uid,
+                image: image.fileName,
+            })
+            .then(() => {
+                storage()
+                    .ref(`carsImages/${image.fileName}`)
+                    .putFile(image.uri!)
+                    .then(() => navigation.goBack());
+            })
+            .catch(error => {
+                throw error;
+            });
     };
 
     return (
@@ -57,6 +61,7 @@ const AddCarScreen = () => {
             setForm={setForm}
             addImage={<AddCarImage image={image} setImage={setImage} />}
             addButton={<Button name="Create" onPress={addCar} />}
+            error={error}
         />
     );
 };
