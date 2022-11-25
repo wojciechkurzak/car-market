@@ -26,7 +26,7 @@ const Register = () => {
         password: '',
         confirmPassword: '',
     });
-    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [error, setError] = useState<string>('');
 
     const navigation = useNavigation();
 
@@ -51,14 +51,14 @@ const Register = () => {
                 .then(() => UpdateUsername())
                 .catch(error => {
                     if (error.code === 'auth/email-already-in-use') {
-                        setErrorMessage('E-mail address is already in use!');
+                        setError('E-mail address is already in use!');
                     }
                     if (error.code === 'auth/invalid-email') {
-                        setErrorMessage('E-mail address is invalid!');
+                        setError('E-mail address is invalid!');
                     }
                 });
         } else {
-            setErrorMessage('Inputs cannot be empty');
+            setError('Inputs cannot be empty');
         }
     };
 
@@ -96,7 +96,7 @@ const Register = () => {
                 placeholderTextColor={placeholderColor}
                 secureTextEntry={true}
             />
-            <Text style={styles.errorMessage}>{errorMessage}</Text>
+            {error && <Text style={styles.errorMessage}>{error}</Text>}
             <Button name="Register" onPress={RegisterAccount} />
         </View>
     );

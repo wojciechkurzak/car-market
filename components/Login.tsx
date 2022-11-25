@@ -21,7 +21,7 @@ const Login = () => {
         email: '',
         password: '',
     });
-    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [error, setError] = useState<string>('');
 
     const navigation = useNavigation();
 
@@ -36,11 +36,11 @@ const Login = () => {
                         error.code === 'auth/invalid-email' ||
                         error.code === 'auth/wrong-password'
                     )
-                        setErrorMessage('Invalid e-mail or password');
-                    else setErrorMessage('Something went wrong');
+                        setError('Invalid e-mail or password');
+                    else setError('Something went wrong');
                 });
         } else {
-            setErrorMessage('Inputs cannot be empty');
+            setError('Inputs cannot be empty');
         }
     };
 
@@ -61,7 +61,7 @@ const Login = () => {
                 placeholderTextColor={placeholderColor}
                 secureTextEntry={true}
             />
-            <Text style={styles.errorMessage}>{errorMessage}</Text>
+            {error && <Text style={styles.errorMessage}>{error}</Text>}
             <Button name="Sign in" onPress={LogIn} />
         </View>
     );
