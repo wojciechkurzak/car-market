@@ -37,10 +37,11 @@ const ProfileUpdateScreen = () => {
                 username: newUsername ? newUsername : user!.displayName,
                 image: newImage ? newImage.fileName : user!.photoURL,
             });
-        await storage()
-            .ref(`usersImages/${user!.uid}/${newImage!.fileName}`)
-            .putFile(newImage!.uri!);
-
+        if (newImage) {
+            await storage()
+                .ref(`usersImages/${user!.uid}/${newImage!.fileName}`)
+                .putFile(newImage!.uri!);
+        }
         await auth().currentUser!.updateProfile({
             displayName: newUsername ? newUsername : user!.displayName,
             photoURL: newImage ? newImage.fileName : user!.photoURL,
