@@ -58,7 +58,7 @@ const PasswordUpdateScreen = () => {
                 secureTextEntry={true}
                 style={styles.input}
             />
-            <Text style={styles.errorMessage}>{error}</Text>
+            {error && <Text style={styles.errorMessage}>{error}</Text>}
             <Button name="Change password" onPress={updatePassword} />
         </View>
     );
