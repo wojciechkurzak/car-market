@@ -66,7 +66,7 @@ const ReauthenticateScreen = () => {
                 placeholderTextColor={placeholderColor}
                 secureTextEntry={true}
             />
-            <Text style={styles.errorMessage}>{error}</Text>
+            {error && <Text style={styles.errorMessage}>{error}</Text>}
             <Button name="Sign in" onPress={reauthenticate} />
         </View>
     );
