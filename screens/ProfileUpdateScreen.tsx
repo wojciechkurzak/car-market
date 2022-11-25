@@ -16,9 +16,9 @@ import {AuthContext} from '../config/context/AuthContext';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 
-type ProfileUpdateRouteProp = RouteProp<StackParamList, 'Update'>;
+type ProfileUpdateRouteProp = RouteProp<StackParamList, 'UpdateProfile'>;
 
-const ProfileUpdate = () => {
+const ProfileUpdateScreen = () => {
     const [newImage, setNewImage] = useState<Asset | null>(null);
     const [newUsername, setNewUsername] = useState<string>('');
 
@@ -90,4 +90,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ProfileUpdate;
+export default ProfileUpdateScreen;

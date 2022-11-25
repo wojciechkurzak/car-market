@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, Route, RouteProp} from '@react-navigation/native';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {
     CardStyleInterpolators,
@@ -9,7 +9,6 @@ import {
 import HomeTabs from './components/HomeTabs';
 import AuthScreen from './screens/AuthScreen';
 import Results from './screens/ResultsScreen';
-import DetailsHeader from './components/DetailsHeader';
 import Details from './screens/DetailsScreen';
 import {CarType} from './interfaces/CarsInterface';
 import {FiltersType} from './interfaces/FiltersInterface';
@@ -17,7 +16,11 @@ import {AuthContext} from './config/context/AuthContext';
 import AddCarScreen from './screens/AddCarScreen';
 import {StatusBar} from 'react-native';
 import {iconColor, navigationColor, textColor} from './config/theme/theme';
-import ProfileUpdate from './screens/ProfileUpdate';
+import ProfileUpdateScreen from './screens/ProfileUpdateScreen';
+import PasswordUpdateScreen from './screens/PasswordUpdateScreen';
+import ReauthenticateScreen from './screens/ReauthenticateScreen';
+
+export type AuthRouteNames = 'UpdatePassword';
 
 export type StackParamList = {
     Home: undefined;
@@ -25,7 +28,9 @@ export type StackParamList = {
     Details: {car: CarType};
     Results: {cars: CarType[]; filters: FiltersType};
     Add: undefined;
-    Update: {imageUrl: string | null; username: string};
+    UpdateProfile: {imageUrl: string | null; username: string};
+    UpdatePassword: {authCredential: FirebaseAuthTypes.AuthCredential};
+    Reauthenticate: {routeName: AuthRouteNames};
 };
 
 const Stack = createStackNavigator<StackParamList>();
@@ -113,11 +118,33 @@ const App = () => {
                         }}
                     />
                     <Stack.Screen
-                        name="Update"
-                        component={ProfileUpdate}
+                        name="UpdateProfile"
+                        component={ProfileUpdateScreen}
                         options={{
                             ...headerStyles,
-                            headerTitle: 'Profile',
+                            headerTitle: 'Update Profile',
+                            presentation: 'modal',
+                            cardStyleInterpolator:
+                                CardStyleInterpolators.forHorizontalIOS,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="UpdatePassword"
+                        component={PasswordUpdateScreen}
+                        options={{
+                            ...headerStyles,
+                            headerTitle: 'Update Password',
+                            presentation: 'modal',
+                            cardStyleInterpolator:
+                                CardStyleInterpolators.forHorizontalIOS,
+                        }}
+                    />
+                    <Stack.Screen
+                        name="Reauthenticate"
+                        component={ReauthenticateScreen}
+                        options={{
+                            ...headerStyles,
+                            headerTitle: 'Authentication',
                             presentation: 'modal',
                             cardStyleInterpolator:
                                 CardStyleInterpolators.forHorizontalIOS,

@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useContext, useState, useEffect} from 'react';
-import {StackParamList} from '../App';
+import {AuthRouteNames, StackParamList} from '../App';
 import Button from '../components/Button';
 import Profile from '../components/Profile';
 import {Text, StyleSheet, View} from 'react-native';
@@ -9,12 +9,12 @@ import {AuthContext} from '../config/context/AuthContext';
 import {darkGray, textColor} from '../config/theme/theme';
 import storage from '@react-native-firebase/storage';
 
-type AuthPanelNavigationProp = StackNavigationProp<StackParamList, 'Auth'>;
+type NavigationProps = StackNavigationProp<StackParamList>;
 
 const SettingsScreen = () => {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-    const navigation = useNavigation<AuthPanelNavigationProp>();
+    const navigation = useNavigation<NavigationProps>();
 
     const user = useContext(AuthContext);
 
@@ -41,9 +41,17 @@ const SettingsScreen = () => {
                     <Button
                         name="Update profile"
                         onPress={() =>
-                            navigation.navigate('Update', {
+                            navigation.navigate('UpdateProfile', {
                                 imageUrl: imageUrl,
                                 username: user.displayName!,
+                            })
+                        }
+                    />
+                    <Button
+                        name="Update password"
+                        onPress={() =>
+                            navigation.navigate('Reauthenticate', {
+                                routeName: 'UpdatePassword',
                             })
                         }
                     />
