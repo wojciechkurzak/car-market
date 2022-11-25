@@ -127,24 +127,25 @@ const Filters = ({cars}: {cars: CarType[]}) => {
     };
 
     return (
-        <View style={styles.filtersContainer}>
-            <FlatList data={filterInputs} renderItem={renderItem} />
-            <Button
-                name="Show result"
-                onPress={() =>
-                    navigation.navigate('Results', {
-                        cars: cars,
-                        filters: filters,
-                    })
-                }
-            />
-
+        <>
+            <View style={styles.filtersContainer}>
+                <FlatList data={filterInputs} renderItem={renderItem} />
+                <Button
+                    name="Show result"
+                    onPress={() =>
+                        navigation.navigate('Results', {
+                            cars: cars,
+                            filters: filters,
+                        })
+                    }
+                />
+            </View>
             <BrandModal
                 visible={brandModal}
                 setVisible={setBrandModal}
                 modalItem={modalItem}
             />
-        </View>
+        </>
     );
 };
 
@@ -152,6 +153,7 @@ const styles = StyleSheet.create({
     filtersContainer: {
         width: '100%',
         paddingHorizontal: 30,
+        marginBottom: 10,
     },
     tag: {
         fontSize: 16,

@@ -20,16 +20,17 @@ const Button = ({name, onPress}: ButtonType) => {
 const styles = StyleSheet.create({
     button: {
         width: 300,
+        height: 34,
         backgroundColor: buttonColor,
         alignSelf: 'center',
-        marginVertical: 20,
+        justifyContent: 'center',
+        marginTop: 20,
         borderRadius: 4,
     },
     text: {
         color: textColor,
         fontSize: 16,
         fontWeight: '700',
-        lineHeight: 34,
         textAlign: 'center',
     },
 });
