@@ -57,7 +57,6 @@ const AddCarImage = ({image, setImage}: AddCarImageProps) => {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        marginTop: 12,
     },
     addImageContainer: {
         width: 150,

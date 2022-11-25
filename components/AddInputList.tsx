@@ -116,6 +116,7 @@ const AddInputList = ({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingVertical: 20,
         backgroundColor: darkGray,
     },
     formInput: {
