@@ -1,6 +1,6 @@
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import React, {useEffect, useLayoutEffect, useRef} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
 import {StackParamList} from '../App';
 import {darkGray, lightGray} from '../config/theme/theme';
 import Title from '../components/car_info/Title';

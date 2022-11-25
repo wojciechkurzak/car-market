@@ -1,5 +1,4 @@
-export interface CarType {
-    id: string;
+export interface CarData {
     title: string;
     description: string;
     mileage: string;
@@ -14,4 +13,8 @@ export interface CarType {
     displacement: string;
     carBrand: string;
     userId: string;
+}
+
+export interface CarType extends CarData {
+    id: string;
 }

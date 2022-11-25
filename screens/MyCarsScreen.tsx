@@ -6,7 +6,7 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {StackParamList} from '../App';
 import firestore from '@react-native-firebase/firestore';
-import {CarType} from '../interfaces/CarsInterface';
+import {CarData, CarType} from '../interfaces/CarsInterface';
 import CarList from '../components/CarList';
 import NoResult from '../components/NoResult';
 import {darkGray, textColor} from '../config/theme/theme';
@@ -34,7 +34,7 @@ const MyCarsScreen = () => {
                             ...carsArray,
                             {
                                 id: documentSnapshot.id,
-                                ...documentSnapshot.data(),
+                                ...(documentSnapshot.data() as CarData),
                             },
                         ]),
                 );

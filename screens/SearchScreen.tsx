@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, RefreshControl} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import {CarType} from '../interfaces/CarsInterface';
+import {CarData, CarType} from '../interfaces/CarsInterface';
 import CarList from '../components/CarList';
 import {darkGray} from '../config/theme/theme';
 
@@ -21,7 +21,7 @@ const SearchScreen = () => {
                             ...carsArray,
                             {
                                 id: documentSnapshot.id,
-                                ...documentSnapshot.data(),
+                                ...(documentSnapshot.data() as CarData),
                             },
                         ]),
                 );

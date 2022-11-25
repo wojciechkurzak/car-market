@@ -12,12 +12,7 @@ import {
     Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import {
-    iconColor,
-    lightGray,
-    navigationColor,
-    textColor,
-} from '../config/theme/theme';
+import {iconColor, lightGray, textColor} from '../config/theme/theme';
 
 type AddCarImageProps = {
     image: Asset | null;

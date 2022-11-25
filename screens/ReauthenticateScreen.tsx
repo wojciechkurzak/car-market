@@ -10,12 +10,7 @@ import {
 import Button from '../components/Button';
 import auth from '@react-native-firebase/auth';
 import firebase from '@react-native-firebase/app';
-import {
-    NavigationProp,
-    RouteProp,
-    useNavigation,
-    useRoute,
-} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {AuthRouteNames, StackParamList} from '../App';
 import {StackNavigationProp} from '@react-navigation/stack';
 

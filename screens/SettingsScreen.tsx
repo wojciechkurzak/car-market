@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useContext, useState, useEffect} from 'react';
-import {AuthRouteNames, StackParamList} from '../App';
+import {StackParamList} from '../App';
 import Button from '../components/Button';
 import Profile from '../components/Profile';
 import {Text, StyleSheet, View} from 'react-native';

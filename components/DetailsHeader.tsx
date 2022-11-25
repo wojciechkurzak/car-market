@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FavIcon from 'react-native-vector-icons/FontAwesome';
@@ -7,7 +7,6 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackParamList} from '../App';
 import {getStorage, setStorage} from '../config/async_storage/asyncStorage';
 import Animated from 'react-native-reanimated';
-import {navigationColor} from '../config/theme/theme';
 
 type DetailsRouteProp = RouteProp<StackParamList, 'Details'>;
 

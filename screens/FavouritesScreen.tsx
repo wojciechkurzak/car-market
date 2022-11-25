@@ -4,7 +4,7 @@ import {View, StyleSheet} from 'react-native';
 import {getStorage} from '../config/async_storage/asyncStorage';
 import firestore from '@react-native-firebase/firestore';
 import firebase from '@react-native-firebase/app';
-import {CarType} from '../interfaces/CarsInterface';
+import {CarData, CarType} from '../interfaces/CarsInterface';
 import CarList from '../components/CarList';
 import NoResult from '../components/NoResult';
 import {darkGray} from '../config/theme/theme';
@@ -25,7 +25,7 @@ const FavouritesScreen = () => {
                             ...carsArray,
                             {
                                 id: documentSnapshot.id,
-                                ...documentSnapshot.data(),
+                                ...(documentSnapshot.data() as CarData),
                             },
                         ]),
                 );
