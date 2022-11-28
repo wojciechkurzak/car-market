@@ -9,16 +9,19 @@ import {StackParamList} from '../App';
 import {getStorage, setStorage} from '../config/async_storage/asyncStorage';
 import Animated from 'react-native-reanimated';
 import {deleteColor, iconColor, navigationColor} from '../config/theme/theme';
+import ItemDeleteModal from './ItemDeleteModal';
 
 type DetailsRouteProp = RouteProp<StackParamList, 'Details'>;
 
 type DetailsHeaderProps = {
+    itemId: string;
     edit: boolean;
     animation: any;
 };
 
-const DetailsHeader = ({edit, animation}: DetailsHeaderProps) => {
+const DetailsHeader = ({itemId, edit, animation}: DetailsHeaderProps) => {
     const [favourite, setFavourite] = useState<boolean>(false);
+    const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
     const navigation = useNavigation();
 
@@ -43,45 +46,53 @@ const DetailsHeader = ({edit, animation}: DetailsHeaderProps) => {
     }, []);
 
     return (
-        <Animated.View style={[styles.container, animation]}>
-            <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-                <ArrowIcon
-                    name="arrow-left"
-                    size={26}
-                    color="#fff"
-                    style={styles.icon}
-                />
-            </TouchableWithoutFeedback>
-            {edit ? (
-                <View style={styles.editIcons}>
-                    <TouchableWithoutFeedback onPress={toggleFavourite}>
-                        <EditIcon
-                            name="edit"
-                            size={24}
-                            color={iconColor}
-                            style={styles.icon}
-                        />
-                    </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={toggleFavourite}>
-                        <EditIcon
-                            name="delete"
-                            size={26}
-                            color={deleteColor}
-                            style={styles.icon}
-                        />
-                    </TouchableWithoutFeedback>
-                </View>
-            ) : (
-                <TouchableWithoutFeedback onPress={toggleFavourite}>
-                    <FavIcon
-                        name={favourite ? 'star' : 'star-o'}
+        <>
+            <Animated.View style={[styles.container, animation]}>
+                <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+                    <ArrowIcon
+                        name="arrow-left"
                         size={26}
-                        color={favourite ? '#ffca28' : iconColor}
+                        color="#fff"
                         style={styles.icon}
                     />
                 </TouchableWithoutFeedback>
-            )}
-        </Animated.View>
+                {edit ? (
+                    <View style={styles.editIcons}>
+                        <TouchableWithoutFeedback onPress={toggleFavourite}>
+                            <EditIcon
+                                name="edit"
+                                size={24}
+                                color={iconColor}
+                                style={styles.icon}
+                            />
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback
+                            onPress={() => setDeleteModal(true)}>
+                            <EditIcon
+                                name="delete"
+                                size={26}
+                                color={deleteColor}
+                                style={styles.icon}
+                            />
+                        </TouchableWithoutFeedback>
+                    </View>
+                ) : (
+                    <TouchableWithoutFeedback onPress={toggleFavourite}>
+                        <FavIcon
+                            name={favourite ? 'star' : 'star-o'}
+                            size={26}
+                            color={favourite ? '#ffca28' : iconColor}
+                            style={styles.icon}
+                        />
+                    </TouchableWithoutFeedback>
+                )}
+            </Animated.View>
+            <ItemDeleteModal
+                itemId={itemId}
+                visible={deleteModal}
+                setVisible={setDeleteModal}
+            />
+        </>
     );
 };
 

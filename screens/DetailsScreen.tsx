@@ -25,6 +25,7 @@ const DetailsScreen = () => {
     const route = useRoute<DetailsRouteProp>();
 
     const {
+        id,
         title,
         image,
         productionDate,
@@ -58,7 +59,7 @@ const DetailsScreen = () => {
 
     return (
         <View style={{position: 'relative'}}>
-            <DetailsHeader edit={edit} animation={animation} />
+            <DetailsHeader itemId={id} edit={edit} animation={animation} />
             <Animated.ScrollView
                 overScrollMode="never"
                 scrollEventThrottle={16}
