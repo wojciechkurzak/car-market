@@ -54,7 +54,7 @@ const FavouritesScreen = () => {
     return (
         <View style={styles.container}>
             {favouriteCars.length !== 0 ? (
-                <CarList cars={favouriteCars} filter={false} />
+                <CarList cars={favouriteCars} />
             ) : (
                 <NoResult text="No favourites" iconName="star" />
             )}

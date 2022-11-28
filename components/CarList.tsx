@@ -6,12 +6,20 @@ import Filters from './Filters';
 
 type CarListType = {
     cars: CarType[];
-    filter: boolean;
+    filter?: boolean;
+    edit?: boolean;
     refreshControl?: JSX.Element;
 };
 
-const CarList = ({cars, filter, refreshControl}: CarListType) => {
-    const renderItem = ({item}: {item: CarType}) => <CarCard car={item} />;
+const CarList = ({
+    cars,
+    filter = false,
+    edit = false,
+    refreshControl,
+}: CarListType) => {
+    const renderItem = ({item}: {item: CarType}) => (
+        <CarCard car={item} edit={edit} />
+    );
 
     return (
         <View style={styles.container}>

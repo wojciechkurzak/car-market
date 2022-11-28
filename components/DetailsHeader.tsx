@@ -1,16 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import EditIcon from 'react-native-vector-icons/MaterialIcons';
+import ArrowIcon from 'react-native-vector-icons/FontAwesome5';
 import FavIcon from 'react-native-vector-icons/FontAwesome';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackParamList} from '../App';
 import {getStorage, setStorage} from '../config/async_storage/asyncStorage';
 import Animated from 'react-native-reanimated';
+import {deleteColor, iconColor, navigationColor} from '../config/theme/theme';
 
 type DetailsRouteProp = RouteProp<StackParamList, 'Details'>;
 
-const DetailsHeader = ({animation}: any) => {
+type DetailsHeaderProps = {
+    edit: boolean;
+    animation: any;
+};
+
+const DetailsHeader = ({edit, animation}: DetailsHeaderProps) => {
     const [favourite, setFavourite] = useState<boolean>(false);
 
     const navigation = useNavigation();
@@ -38,15 +45,42 @@ const DetailsHeader = ({animation}: any) => {
     return (
         <Animated.View style={[styles.container, animation]}>
             <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-                <Icon name="arrow-left" size={26} color="#fff" />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={toggleFavourite}>
-                <FavIcon
-                    name={favourite ? 'star' : 'star-o'}
+                <ArrowIcon
+                    name="arrow-left"
                     size={26}
-                    color={favourite ? '#ffca28' : '#fff'}
+                    color="#fff"
+                    style={styles.icon}
                 />
             </TouchableWithoutFeedback>
+            {edit ? (
+                <View style={styles.editIcons}>
+                    <TouchableWithoutFeedback onPress={toggleFavourite}>
+                        <EditIcon
+                            name="edit"
+                            size={24}
+                            color={iconColor}
+                            style={styles.icon}
+                        />
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={toggleFavourite}>
+                        <EditIcon
+                            name="delete"
+                            size={26}
+                            color={deleteColor}
+                            style={styles.icon}
+                        />
+                    </TouchableWithoutFeedback>
+                </View>
+            ) : (
+                <TouchableWithoutFeedback onPress={toggleFavourite}>
+                    <FavIcon
+                        name={favourite ? 'star' : 'star-o'}
+                        size={26}
+                        color={favourite ? '#ffca28' : iconColor}
+                        style={styles.icon}
+                    />
+                </TouchableWithoutFeedback>
+            )}
         </Animated.View>
     );
 };
@@ -60,6 +94,21 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: 'rgba(52, 52, 52, 0.8)',
         zIndex: 1,
+    },
+    editIcons: {
+        width: 70,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    icon: {
+        borderRadius: 50,
+        width: 34,
+        height: 34,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        backgroundColor: navigationColor,
     },
 });
 

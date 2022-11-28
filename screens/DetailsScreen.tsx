@@ -38,6 +38,8 @@ const DetailsScreen = () => {
         userId,
     } = route.params.car;
 
+    const {edit} = route.params;
+
     const scrollY = useSharedValue(0);
 
     const animation = useAnimatedStyle(() => {
@@ -56,7 +58,7 @@ const DetailsScreen = () => {
 
     return (
         <View style={{position: 'relative'}}>
-            <DetailsHeader animation={animation} />
+            <DetailsHeader edit={edit} animation={animation} />
             <Animated.ScrollView
                 overScrollMode="never"
                 scrollEventThrottle={16}

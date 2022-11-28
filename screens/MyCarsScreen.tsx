@@ -56,7 +56,7 @@ const MyCarsScreen = () => {
             {user ? (
                 <View style={styles.container}>
                     {myCars.length !== 0 ? (
-                        <CarList cars={myCars} filter={false} />
+                        <CarList cars={myCars} edit={true} />
                     ) : (
                         <NoResult
                             text="No listed cars"

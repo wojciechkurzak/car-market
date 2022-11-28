@@ -6,3 +6,4 @@ export const iconColor = '#fff';
 export const textColor = '#fff';
 export const placeholderColor = '#aaa';
 export const errorColor = '#cc0000';
+export const deleteColor = '#e22';

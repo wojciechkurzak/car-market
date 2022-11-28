@@ -25,7 +25,7 @@ export type AuthRouteNames = 'UpdatePassword';
 export type StackParamList = {
     Home: undefined;
     Auth: undefined;
-    Details: {car: CarType};
+    Details: {car: CarType; edit: boolean};
     Results: {cars: CarType[]; filters: FiltersType};
     Add: undefined;
     UpdateProfile: {imageUrl: string | null; username: string};

@@ -11,7 +11,12 @@ import {lightGray, textColor} from '../config/theme/theme';
 
 type DetailsNavigationProp = StackNavigationProp<StackParamList, 'Details'>;
 
-const CarCard = ({car}: {car: CarType}) => {
+type CarCardType = {
+    car: CarType;
+    edit: boolean;
+};
+
+const CarCard = ({car, edit}: CarCardType) => {
     const [imageUrl, setImageUrl] = useState<string>('');
 
     const navigation = useNavigation<DetailsNavigationProp>();
@@ -43,7 +48,10 @@ const CarCard = ({car}: {car: CarType}) => {
     return (
         <TouchableWithoutFeedback
             onPress={() =>
-                navigation.navigate('Details', {car: {...car, image: imageUrl}})
+                navigation.navigate('Details', {
+                    car: {...car, image: imageUrl},
+                    edit,
+                })
             }>
             <View style={styles.cardContainer}>
                 <View style={styles.imageContainer}>
