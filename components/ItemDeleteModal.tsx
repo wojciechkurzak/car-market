@@ -13,6 +13,8 @@ import {
     lightGray,
     textColor,
 } from '../config/theme/theme';
+import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
 
 type ItemDeleteModalType = {
     itemId: string;
@@ -25,9 +27,20 @@ const ItemDeleteModal = ({
     visible,
     setVisible,
 }: ItemDeleteModalType) => {
+    const navigation = useNavigation();
+
     const deleteItem = (): void => {
-        console.log('deleted');
-        setVisible(!visible);
+        firestore()
+            .collection('CarOffers')
+            .doc(itemId)
+            .delete()
+            .then(() => {
+                navigation.goBack();
+                setVisible(!visible);
+            })
+            .catch(error => {
+                throw error;
+            });
     };
 
     return (
