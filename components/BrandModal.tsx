@@ -71,7 +71,7 @@ const BrandModal = ({visible, setVisible, modalItem}: FiltersModalType) => {
                             renderItem={renderItem}
                             extraData={searchBrand}
                             overScrollMode={'never'}
-                            initialNumToRender={14}
+                            initialNumToRender={carBrands.length}
                         />
                         <View style={styles.bottomTab}>
                             <TouchableWithoutFeedback
