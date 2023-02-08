@@ -6,10 +6,11 @@ import {
     TextInput,
     TouchableWithoutFeedback,
     FlatList,
+    KeyboardTypeOptions,
 } from 'react-native';
 import {CarFormType} from '../interfaces/AddCarInterface';
 import BrandModal from '../components/BrandModal';
-import {carAddInputs} from '../data/carAddInputs';
+import {carAddInputs, CarInputType} from '../data/carAddInputs';
 import Icon from 'react-native-vector-icons/Feather';
 import {
     darkGray,
@@ -19,14 +20,6 @@ import {
     placeholderColor,
     textColor,
 } from '../config/theme/theme';
-
-type CarInputType = {
-    type: string;
-    placeholder: string;
-    length: number;
-    multiline?: boolean;
-    numberOfLines?: number;
-};
 
 type AddInputListProps = {
     form: CarFormType;
@@ -65,6 +58,7 @@ const AddInputList = ({
                     placeholder={item.placeholder}
                     placeholderTextColor={placeholderColor}
                     maxLength={item.length}
+                    keyboardType={item.keyboardType}
                     multiline={item.multiline}
                     numberOfLines={item.numberOfLines}
                     value={form[item.type as keyof CarFormType]}

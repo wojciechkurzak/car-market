@@ -1,4 +1,11 @@
-export const filterInputs = [
+export type FilterInputType = {
+    title: string;
+    type: string;
+    min?: string;
+    max?: string;
+};
+
+export const filterInputs: FilterInputType[] = [
     {
         title: 'Car brands',
         type: 'brands',

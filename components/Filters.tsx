@@ -15,7 +15,7 @@ import BrandModal from './BrandModal';
 import Icon from 'react-native-vector-icons/Feather';
 import {StackParamList} from '../App';
 import FiltersCheckbox from './FiltersCheckbox';
-import {filterInputs} from '../data/filterInputs';
+import {filterInputs, FilterInputType} from '../data/filterInputs';
 import {
     buttonColor,
     iconColor,
@@ -26,13 +26,6 @@ import {
 import Button from './Button';
 
 type ResultsNavigationProp = StackNavigationProp<StackParamList, 'Results'>;
-
-type FilterInputType = {
-    title: string;
-    type: string;
-    min?: string;
-    max?: string;
-};
 
 const Filters = ({cars}: {cars: CarType[]}) => {
     const [filters, setFilters] = useState<FiltersType>({
