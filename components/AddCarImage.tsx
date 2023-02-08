@@ -17,9 +17,10 @@ import {iconColor, lightGray, textColor} from '../config/theme/theme';
 type AddCarImageProps = {
     image: Asset | null;
     setImage: (value: Asset) => void;
+    defaultImage?: string;
 };
 
-const AddCarImage = ({image, setImage}: AddCarImageProps) => {
+const AddCarImage = ({image, setImage, defaultImage}: AddCarImageProps) => {
     const openCamera = (): void => {
         const options: ImageLibraryOptions = {
             mediaType: 'photo',
@@ -36,11 +37,18 @@ const AddCarImage = ({image, setImage}: AddCarImageProps) => {
             }
         });
     };
+
+    console.log(image);
     return (
         <View style={styles.container}>
-            {image ? (
+            {image || defaultImage ? (
                 <TouchableWithoutFeedback onPress={openCamera}>
-                    <Image source={{uri: image.uri}} style={styles.image} />
+                    <Image
+                        source={{
+                            uri: image ? image.uri : defaultImage,
+                        }}
+                        style={styles.image}
+                    />
                 </TouchableWithoutFeedback>
             ) : (
                 <TouchableWithoutFeedback onPress={openCamera}>

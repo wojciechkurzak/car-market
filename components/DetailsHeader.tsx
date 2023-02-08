@@ -10,20 +10,23 @@ import {getStorage, setStorage} from '../config/async_storage/asyncStorage';
 import Animated from 'react-native-reanimated';
 import {deleteColor, iconColor, navigationColor} from '../config/theme/theme';
 import ItemDeleteModal from './ItemDeleteModal';
+import {CarType} from '../interfaces/CarsInterface';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 type DetailsRouteProp = RouteProp<StackParamList, 'Details'>;
+type EditNavigationProp = StackNavigationProp<StackParamList, 'Edit'>;
 
 type DetailsHeaderProps = {
-    itemId: string;
+    car: CarType;
     edit: boolean;
     animation: any;
 };
 
-const DetailsHeader = ({itemId, edit, animation}: DetailsHeaderProps) => {
+const DetailsHeader = ({car, edit, animation}: DetailsHeaderProps) => {
     const [favourite, setFavourite] = useState<boolean>(false);
     const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<EditNavigationProp>();
 
     const routes = useRoute<DetailsRouteProp>();
 
@@ -58,7 +61,10 @@ const DetailsHeader = ({itemId, edit, animation}: DetailsHeaderProps) => {
                 </TouchableWithoutFeedback>
                 {edit ? (
                     <View style={styles.editIcons}>
-                        <TouchableWithoutFeedback onPress={toggleFavourite}>
+                        <TouchableWithoutFeedback
+                            onPress={() =>
+                                navigation.navigate('Edit', {car: car})
+                            }>
                             <EditIcon
                                 name="edit"
                                 size={24}
@@ -88,7 +94,7 @@ const DetailsHeader = ({itemId, edit, animation}: DetailsHeaderProps) => {
                 )}
             </Animated.View>
             <ItemDeleteModal
-                itemId={itemId}
+                itemId={car.id}
                 visible={deleteModal}
                 setVisible={setDeleteModal}
             />

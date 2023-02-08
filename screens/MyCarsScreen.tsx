@@ -48,7 +48,7 @@ const MyCarsScreen = () => {
     useFocusEffect(
         useCallback(() => {
             getMyCars();
-        }, [user]),
+        }, []),
     );
 
     return (

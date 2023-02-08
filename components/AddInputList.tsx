@@ -53,42 +53,53 @@ const AddInputList = ({
     const renderItem = ({item}: {item: CarInputType}): JSX.Element => {
         if (item.type !== 'brand')
             return (
-                <TextInput
-                    style={styles.formInput}
-                    placeholder={item.placeholder}
-                    placeholderTextColor={placeholderColor}
-                    maxLength={item.length}
-                    keyboardType={item.keyboardType}
-                    multiline={item.multiline}
-                    numberOfLines={item.numberOfLines}
-                    value={form[item.type as keyof CarFormType]}
-                    onChangeText={text => {
-                        setForm({...form, [item.type]: text});
-                    }}
-                />
+                <View style={styles.formContainer}>
+                    <Text style={styles.formTitle}>{item.placeholder}</Text>
+                    <TextInput
+                        style={styles.formInput}
+                        placeholder="Type here..."
+                        placeholderTextColor={placeholderColor}
+                        maxLength={item.length}
+                        keyboardType={item.keyboardType}
+                        multiline={item.multiline}
+                        numberOfLines={item.numberOfLines}
+                        value={form[item.type as keyof CarFormType]}
+                        onChangeText={text => {
+                            setForm({...form, [item.type]: text});
+                        }}
+                    />
+                </View>
             );
         else
             return (
                 <TouchableWithoutFeedback onPress={() => setBrandModal(true)}>
-                    <View style={styles.formInput}>
-                        <Text
-                            style={
-                                form.carBrand
-                                    ? {color: textColor}
-                                    : {color: placeholderColor}
-                            }>
-                            {form.carBrand ? form.carBrand : 'Select brand'}
-                        </Text>
-                        {!form.carBrand ? (
-                            <Icon name="plus" size={26} color={iconColor} />
-                        ) : (
-                            <TouchableWithoutFeedback
-                                onPress={() =>
-                                    setForm({...form, carBrand: ''})
-                                }>
-                                <Icon name="x" size={26} color={iconColor} />
-                            </TouchableWithoutFeedback>
-                        )}
+                    <View style={styles.formContainer}>
+                        <Text style={styles.formTitle}>{item.placeholder}</Text>
+                        <View style={styles.formInput}>
+                            <Text
+                                style={{
+                                    marginLeft: 4,
+                                    color: form.carBrand
+                                        ? textColor
+                                        : placeholderColor,
+                                }}>
+                                {form.carBrand ? form.carBrand : 'Select brand'}
+                            </Text>
+                            {!form.carBrand ? (
+                                <Icon name="plus" size={26} color={iconColor} />
+                            ) : (
+                                <TouchableWithoutFeedback
+                                    onPress={() =>
+                                        setForm({...form, carBrand: ''})
+                                    }>
+                                    <Icon
+                                        name="x"
+                                        size={26}
+                                        color={iconColor}
+                                    />
+                                </TouchableWithoutFeedback>
+                            )}
+                        </View>
                     </View>
                 </TouchableWithoutFeedback>
             );
@@ -129,16 +140,22 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         backgroundColor: darkGray,
     },
+    formContainer: {
+        marginTop: 14,
+        paddingHorizontal: 28,
+    },
+    formTitle: {
+        color: '#fff',
+        fontSize: 18,
+    },
     formInput: {
-        borderBottomWidth: 1,
+        borderBottomWidth: 2,
         borderColor: lightGray,
-        padding: 10,
-        marginTop: 10,
+        paddingVertical: 8,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         maxHeight: 86,
-        marginHorizontal: 20,
         color: textColor,
     },
     showResultContainer: {

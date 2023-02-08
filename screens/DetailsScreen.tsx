@@ -25,7 +25,6 @@ const DetailsScreen = () => {
     const route = useRoute<DetailsRouteProp>();
 
     const {
-        id,
         title,
         image,
         productionDate,
@@ -39,7 +38,7 @@ const DetailsScreen = () => {
         userId,
     } = route.params.car;
 
-    const {edit} = route.params;
+    const {edit, car} = route.params;
 
     const scrollY = useSharedValue(0);
 
@@ -59,7 +58,7 @@ const DetailsScreen = () => {
 
     return (
         <View style={{position: 'relative'}}>
-            <DetailsHeader itemId={id} edit={edit} animation={animation} />
+            <DetailsHeader car={car} edit={edit} animation={animation} />
             <Animated.ScrollView
                 overScrollMode="never"
                 scrollEventThrottle={16}
