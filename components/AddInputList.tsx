@@ -83,7 +83,7 @@ const AddInputList = ({
                                     ? {color: textColor}
                                     : {color: placeholderColor}
                             }>
-                            {form.carBrand ? form.carBrand : 'Select brands'}
+                            {form.carBrand ? form.carBrand : 'Select brand'}
                         </Text>
                         {!form.carBrand ? (
                             <Icon name="plus" size={26} color={iconColor} />
