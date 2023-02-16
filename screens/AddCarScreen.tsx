@@ -31,28 +31,24 @@ const AddCarScreen = () => {
 
     const navigation = useNavigation();
 
-    const addCar = (): void => {
+    const addCar = async (): Promise<void> => {
         if (!user) return;
         if (!image || Object.values(form).some(value => value === '')) {
             setError('Inputs cannot be empty');
             return;
         }
-        firestore()
+
+        await firestore()
             .collection('CarOffers')
             .add({
                 ...form,
                 userId: user.uid,
                 image: image.fileName,
-            })
-            .then(() => {
-                storage()
-                    .ref(`carsImages/${image.fileName}`)
-                    .putFile(image.uri!)
-                    .then(() => navigation.goBack());
-            })
-            .catch(error => {
-                throw error;
             });
+
+        await storage().ref(`carsImages/${image.fileName}`).putFile(image.uri!);
+
+        navigation.goBack();
     };
 
     return (

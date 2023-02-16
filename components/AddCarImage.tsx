@@ -38,7 +38,6 @@ const AddCarImage = ({image, setImage, defaultImage}: AddCarImageProps) => {
         });
     };
 
-    console.log(image);
     return (
         <View style={styles.container}>
             {image || defaultImage ? (

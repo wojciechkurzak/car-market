@@ -1,4 +1,4 @@
-import React, {useContext, useCallback, useState, useEffect} from 'react';
+import React, {useContext, useCallback, useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {AuthContext} from '../config/context/AuthContext';
 import Button from '../components/Button';

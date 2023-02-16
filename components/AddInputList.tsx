@@ -6,7 +6,6 @@ import {
     TextInput,
     TouchableWithoutFeedback,
     FlatList,
-    KeyboardTypeOptions,
 } from 'react-native';
 import {CarFormType} from '../interfaces/AddCarInterface';
 import BrandModal from '../components/BrandModal';
