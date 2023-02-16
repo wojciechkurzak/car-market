@@ -9,8 +9,10 @@ import AddCarImage from '../components/AddCarImage';
 import Button from '../components/Button';
 import storage from '@react-native-firebase/storage';
 import {StackParamList} from '../App';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 type EditRouteProp = RouteProp<StackParamList, 'Edit'>;
+type HomeNavigationProp = StackNavigationProp<StackParamList, 'Home'>;
 
 const EditCarScreen = () => {
     const route = useRoute<EditRouteProp>();
@@ -35,15 +37,15 @@ const EditCarScreen = () => {
 
     const user = useContext(AuthContext);
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<HomeNavigationProp>();
 
-    const editCar = (): void => {
+    const editCar = async (): Promise<void> => {
         if (!user) return;
         if (Object.values(form).some(value => value === '')) {
             setError('Inputs cannot be empty');
             return;
         }
-        firestore()
+        await firestore()
             .collection('CarOffers')
             .doc(car.id)
             .update(
@@ -55,23 +57,18 @@ const EditCarScreen = () => {
                     : {
                           ...form,
                       },
-            )
-            .then(() => {
-                if (image !== null) {
-                    storage()
-                        .ref(`carsImages/${image.fileName}`)
-                        .putFile(image.uri!)
-                        .catch(error => {
-                            throw error;
-                        });
-                }
-            })
-            .then(() => {
-                navigation.goBack();
-            })
-            .catch(error => {
-                throw error;
-            });
+            );
+
+        if (image !== null) {
+            await storage()
+                .ref(`carsImages/${image.fileName}`)
+                .putFile(image.uri!)
+                .catch(error => {
+                    throw error;
+                });
+        }
+
+        navigation.replace('Home', {screen: 'MyCars'});
     };
 
     return (

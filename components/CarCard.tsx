@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
 import {CarType} from '../interfaces/CarsInterface';
 import storage from '@react-native-firebase/storage';

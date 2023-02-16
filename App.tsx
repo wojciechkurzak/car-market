@@ -24,7 +24,7 @@ import EditCarScreen from './screens/EditCarScreen';
 export type AuthRouteNames = 'UpdatePassword';
 
 export type StackParamList = {
-    Home: undefined;
+    Home: {screen?: string};
     Auth: undefined;
     Details: {car: CarType; edit: boolean};
     Results: {cars: CarType[]; filters: FiltersType};
