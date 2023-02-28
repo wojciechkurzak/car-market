@@ -1,7 +1,7 @@
 <h2>About project</h2>
 <p>Car Market is a mobile marketplace for selling cars. It features adding new offers, updating or deleting them, 
 filtering and displaying already existing offers, marking them as favourite. Clicking on an offer displays details about the car and the seller. 
-User can also add username and profile picture which are displayed in detailes section.</p>
+User can also add username and profile picture which are displayed in details section.</p>
 <h2>Technologies</h2>
 <ul>
 <li>React Native</li>
